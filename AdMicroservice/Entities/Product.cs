@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 namespace AdMicroservice.Entities
 {
     /// <summary>
-    /// Predstavlja model proizvoda
+    /// Entity class which represents product
     /// </summary>
     public class Product : ItemForSale
     {
         /// <summary>
-        /// Težina proizvoda.
+        /// Weight of the product
         /// </summary>
-        public double weight { get; set; }
+        public String Weight { get; set; }
     }
 }

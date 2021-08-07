@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace AdMicroservice.Entities
 {
     /// <summary>
-    /// Predstavlja model usluge
+    /// Entity class which represents service
     /// </summary>
     public class Service : ItemForSale
     {

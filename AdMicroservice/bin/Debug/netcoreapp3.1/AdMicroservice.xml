@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdMicroservice</name>
+    </assembly>
+    <members>
+        <member name="T:AdMicroservice.Controllers.PastPriceController">
+            <summary>
+            PastPrice controller with CRUD endpoints
+            </summary>
+        </member>
+        <member name="M:AdMicroservice.Controllers.PastPriceController.GetPastPrices">
+            <summary>
+            Returns list of all past prices
+            </summary>
+            <response code="200">Returns list of past prices</response>
+            <response code="401">Unauthorized error</response>
+            <response code="404">Not found</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:AdMicroservice.Controllers.PastPriceController.GetPastPriceOptions">
+            <summary>
+            Returns all options that exist for API
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AdMicroservice.DBContexts.ItemForSaleDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Filling the database with some data
+            </summary>
+        </member>
+        <member name="T:AdMicroservice.Entities.ItemForSale">
+            <summary>
+            Entity class which represents items for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.ItemForSale.ItemForSaleId">
+            <summary>
+            An identifier for the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.ItemForSale.Name">
+            <summary>
+            Name of the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.ItemForSale.Description">
+            <summary>
+            Description of the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.ItemForSale.Price">
+            <summary>
+            Price of the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.ItemForSale.AccountId">
+            <summary>
+            Id of the user who adds the item for sale to the wall
+            </summary>
+        </member>
+        <member name="T:AdMicroservice.Entities.PastPrice">
+            <summary>
+            Entity class which represents model where is store last price of item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.PastPrice.PastPriceId">
+            <summary>
+            An identifier for the past price
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.PastPrice.ItemForSaleId">
+            <summary>
+            Item for sale id to which the previous price applies
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.PastPrice.Price">
+            <summary>
+            Amount of past price
+            </summary>
+        </member>
+        <member name="T:AdMicroservice.Entities.Product">
+            <summary>
+            Entity class which represents product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Entities.Product.Weight">
+            <summary>
+            Weight of the product
+            </summary>
+        </member>
+        <member name="T:AdMicroservice.Entities.Service">
+            <summary>
+            Entity class which represents service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ItemForSaleDto.ItemForSaleId">
+            <summary>
+            An identifier for the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ItemForSaleDto.Name">
+            <summary>
+            Name of the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ItemForSaleDto.Description">
+            <summary>
+            Description of the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ItemForSaleDto.Price">
+            <summary>
+            Price of the item for sale
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ItemForSaleDto.AccountId">
+            <summary>
+            Id of the user who adds the item for sale to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.PastPriceCreationDTO.ItemForSaleId">
+            <summary>
+            Item for sale id to which the previous price applies
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.PastPriceCreationDTO.Price">
+            <summary>
+            Amount of past price
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.PastPriceDto.ItemForSaleId">
+            <summary>
+            Item for sale id to which the previous price applies
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.PastPriceDto.Price">
+            <summary>
+            Amount of past price
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductConfirmationDto.ItemForSaleId">
+            <summary>
+            An identifier for the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductConfirmationDto.Name">
+            <summary>
+            Name of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductConfirmationDto.Description">
+            <summary>
+            Description of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductConfirmationDto.Price">
+            <summary>
+            Price of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductConfirmationDto.AccountId">
+            <summary>
+            Id of the user who adds the product to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductConfirmationDto.Weight">
+            <summary>
+            Weight of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductCreationDto.Name">
+            <summary>
+            Name of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductCreationDto.Description">
+            <summary>
+            Description of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductCreationDto.Price">
+            <summary>
+            Price of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductCreationDto.AccountId">
+            <summary>
+            Id of the user who adds the product to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductCreationDto.Weight">
+            <summary>
+            Weight of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductUpdateDto.Name">
+            <summary>
+            Name of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductUpdateDto.Description">
+            <summary>
+            Description of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductUpdateDto.Price">
+            <summary>
+            Price of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductUpdateDto.AccountId">
+            <summary>
+            Id of the user who adds the product to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ProductUpdateDto.Weight">
+            <summary>
+            Weight of the product
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceConfirmationDto.ItemForSaleId">
+            <summary>
+            An identifier for the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceConfirmationDto.Name">
+            <summary>
+            Name of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceConfirmationDto.Description">
+            <summary>
+            Description of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceConfirmationDto.Price">
+            <summary>
+            Price of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceConfirmationDto.AccountId">
+            <summary>
+            Id of the user who adds the service to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceCreationDto.Name">
+            <summary>
+            Name of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceCreationDto.Description">
+            <summary>
+            Description of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceCreationDto.Price">
+            <summary>
+            Price of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceCreationDto.AccountId">
+            <summary>
+            Id of the user who adds the service to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceUpdateDto.Name">
+            <summary>
+            Name of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceUpdateDto.Description">
+            <summary>
+            Description of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceUpdateDto.Price">
+            <summary>
+            Price of the service
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.DTO.ServiceUpdateDto.AccountId">
+            <summary>
+            Id of the user who adds the service to the wall
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.Mock.AccountDto.AccountId">
+            <summary>
+            An identifier for the user account
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.Mock.AccountDto.FirstName">
+            <summary>
+            First name of the user
+            </summary>
+        </member>
+        <member name="P:AdMicroservice.Models.Mock.AccountDto.LastName">
+            <summary>
+            Last name of the user
+            </summary>
+        </member>
+    </members>
+</doc>

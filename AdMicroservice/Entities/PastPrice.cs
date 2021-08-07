@@ -1,28 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdMicroservice.Entities
 {
     /// <summary>
-    /// Predstavlja model gde se čuva prošla cena oglasa
+    /// Entity class which represents model where is store last price of item for sale
     /// </summary>
     public class PastPrice
     {
         /// <summary>
-        /// Id prošle cene.
+        /// An identifier for the past price
         /// </summary>
-        public Guid offerId { get; set; }
+        [Key]
+        [Required]
+        public int PastPriceId { get; set; }
 
         /// <summary>
-        /// Na koji oglas se odnosi prošla cena.
+        /// Item for sale id to which the previous price applies
         /// </summary>
-        public ItemForSale ItemForSale { get; set; }
+        [ForeignKey("ItemForSaleId")]
+        public Guid ItemForSaleId { get; set; }
 
         /// <summary>
-        /// Iznos prošle cene.
+        /// Amount of past price
         /// </summary>
-        public double price { get; set; }
+        [Required]
+        public String Price { get; set; }
     }
 }
