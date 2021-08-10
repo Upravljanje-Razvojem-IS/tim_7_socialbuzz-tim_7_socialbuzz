@@ -49,5 +49,10 @@ namespace AdMicroservice.Data.AccountMock
         {
             return Accounts.FirstOrDefault(e => e.FirstName == firstName);
         }
+
+        public AccountDto GetAccountByLasttName(string lastName)
+        {
+            return Accounts.FirstOrDefault(e => e.LastName == lastName);
+        }
     }
 }

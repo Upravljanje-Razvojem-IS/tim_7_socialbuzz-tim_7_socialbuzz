@@ -2,6 +2,7 @@ using AdMicroservice.Data.AccountMock;
 using AdMicroservice.Data.ItemForSale;
 using AdMicroservice.Data.PastPrices;
 using AdMicroservice.DBContexts;
+using AdMicroservice.Logger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -73,6 +74,10 @@ namespace AdMicroservice
 
             services.AddScoped<IPastPriceRepository, PastPriceRepository>();
             services.AddScoped<IAccountMockRepository, AccountMockRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+
+            services.AddSingleton<ILoggerMockRepository, LoggerMockRepository>();
 
             services.AddHttpContextAccessor();
 

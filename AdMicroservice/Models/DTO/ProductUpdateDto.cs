@@ -8,6 +8,12 @@ namespace AdMicroservice.Models.DTO
 {
     public class ProductUpdateDto
     {
+
+        /// <summary>
+        /// An identifier for the product
+        /// </summary>
+        public Guid ItemForSaleId { get; set; }
+
         /// <summary>
         /// Name of the product
         /// </summary>

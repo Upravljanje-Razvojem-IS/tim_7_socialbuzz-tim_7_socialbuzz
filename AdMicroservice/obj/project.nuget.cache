@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MVHBDHljBsImZ+stJVPplbrLtNGM6dJWPrkULfnojwUMJAYDNki7IDwG9x2aCqLgdLv8HpEdNuki5firYhQyPQ==",
+  "dgSpecHash": "ue8wsl6M+425Py+9aR1Oos48VPXravQ9CMRj9epH0ATKMgMX3ntf2pdj09PFvDUUaauLLOhkAj6u3UyFCOt9QQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\tim_7_socialbuzz-tim_7_socialbuzz\\AdMicroservice\\AdMicroservice.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.configuration.binder\\5.0.0\\microsoft.extensions.configuration.binder.5.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.2\\microsoft.extensions.dependencyinjection.5.0.2.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",

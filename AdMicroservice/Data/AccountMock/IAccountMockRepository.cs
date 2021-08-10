@@ -9,5 +9,6 @@ namespace AdMicroservice.Data.AccountMock
     public interface IAccountMockRepository
     {
         AccountDto GetAccountByFirstName(string firstName);
+        AccountDto GetAccountByLasttName(string lastName);
     }
 }

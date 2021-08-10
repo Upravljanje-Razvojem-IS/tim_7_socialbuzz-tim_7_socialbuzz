@@ -25,7 +25,11 @@ namespace AdMicroservice.Data.PastPrices
         public void DeletePastPrice(int id)
         {
             var pastPrice = GetPastPriceById(id);
-            context.Remove(pastPrice);
+            if (pastPrice != null)
+            {
+                context.Remove(pastPrice);
+            }
+
         }
 
         public PastPrice GetPastPriceById(int id)

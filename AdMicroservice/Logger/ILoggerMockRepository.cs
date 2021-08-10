@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdMicroservice.Logger
 {
-    interface ILoggerMockRepository
+    public interface ILoggerMockRepository
     {
         void Log(LogLevel logLevel, string requestId, string previousRequestId, string message, Exception exception);
     }
