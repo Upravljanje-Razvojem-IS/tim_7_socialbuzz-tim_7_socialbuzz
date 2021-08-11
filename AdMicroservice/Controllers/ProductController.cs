@@ -1,5 +1,6 @@
 ﻿using AdMicroservice.Data.ItemForSale;
 using AdMicroservice.Entities;
+using AdMicroservice.Helpers;
 using AdMicroservice.Logger;
 using AdMicroservice.Models.DTO;
 using AutoMapper;
@@ -29,14 +30,17 @@ namespace AdMicroservice.Controllers
         private readonly ILoggerMockRepository logger;
         private readonly IHttpContextAccessor contextAccessor;
 
+        private readonly IAuthHelper auth;
+
         public ProductController(IProductRepository productRepository, IMapper mapper, ILoggerMockRepository logger,
-                                  LinkGenerator linkGenerator, IHttpContextAccessor contextAccessor)
+                                  LinkGenerator linkGenerator, IHttpContextAccessor contextAccessor, IAuthHelper auth)
         {
             this.productRepository = productRepository;
             this.mapper = mapper;
             this.linkGenerator = linkGenerator;
             this.logger = logger;
             this.contextAccessor = contextAccessor;
+            this.auth = auth;
         }
 
         /// <summary>
@@ -51,10 +55,10 @@ namespace AdMicroservice.Controllers
         /// <response code="204">No content</response>
         /// <response code="500">Server error</response>
         [HttpGet]
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju sve proizvode
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
         public ActionResult<List<Product>> GetProducts(string pName)
         {
 
@@ -84,6 +88,7 @@ namespace AdMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{productId}")]
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju proizvode po id-ju
         public ActionResult<Product> GetProductById(Guid productId)
         {
 
@@ -103,12 +108,14 @@ namespace AdMicroservice.Controllers
         /// Add new product
         /// </summary>
         /// <param name="productDto">Model of product</param>
+        /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// POST 'https://localhost:44349/api/products/'\
+        /// --header 'key: Bearer Bojana' \
         /// Example: \
-        /// {
+        /// { \
         ///        "name": "Test", \
-        ///       "description": "Test description", \
+        ///        "description": "Test description", \
         ///        "price": "100000.00 RSD", \
         ///        "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c", \
         ///        "weight": "500g" \
@@ -122,10 +129,16 @@ namespace AdMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public ActionResult<ProductConfirmationDto> CreateProduct([FromBody] ProductCreationDto productDto)
+        public ActionResult<ProductConfirmationDto> CreateProduct([FromBody] ProductCreationDto productDto, [FromHeader] string key)
         {
             try
             {
+                //pristup metodi imaju samo autorizovani korisnici
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
                 Product product = mapper.Map<Product>(productDto);
                 productRepository.CreateProduct(product);
                 productRepository.SaveChanges();
@@ -147,36 +160,46 @@ namespace AdMicroservice.Controllers
         /// Update product
         /// </summary>
         /// <param name="productUpdateDto">Model of product</param>
+        /// <param name="productId">Product id</param>
         /// <param name="accountId">ID of the user who sends the request</param>
+        /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// PUT 'https://localhost:44349/api/products/'\
-        ///  --param  'productId = 3ca21d04-26fd-494d-a1fc-08d95c4724a9' \
+        ///  --header 'key: Bearer Bojana' \
+        ///  --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
         ///  --header 'accountId = f2d8362a-124f-41a9-a22b-6e35b3a2953c' \
         /// Example: \
-        /// {
-        ///        "name": "Update Test", \
-        ///       "description": "Update Test description", \
-        ///        "price": "100000.00 RSD", \
-        ///        "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c", \
-        ///        "weight": "500g" \
+        /// { \
+        ///     "name": "Mobilni telefon Huawei P40 Pro",
+        ///     "description": "Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.",
+        ///     "price": "150000.00 RSD",
+        ///     "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+        ///     "weight": "165g" \
         /// }
         /// </remarks>
         /// <response code="200">Success answer</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
-        /// <response code="500">Server error/response>
+        /// <response code="500">Server error</response>
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut("{productId}")]
-        public ActionResult<Product> UpdateProduct([FromBody] ProductUpdateDto productUpdateDto, Guid productId, [FromHeader] Guid accountId)
+        public ActionResult<Product> UpdateProduct([FromBody] ProductUpdateDto productUpdateDto, Guid productId, [FromHeader] Guid accountId, [FromHeader] string key)
         {
             try
             {
+                //pristup metodi imaju samo autorizovani korisnici
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
+                //Samo onaj koji je postavio proizvod moze da ga modifikuje
                 if (productUpdateDto.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
@@ -206,31 +229,39 @@ namespace AdMicroservice.Controllers
         /// <summary>
         /// Delete product
         /// </summary>
-        /// <param name="productId">Id of product/param>
+        /// <param name="productId">Id of product</param>
         /// <param name="accountId">Id of the user who sends the request</param>
+        /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// DELETE 'https://localhost:44349/api/products/'\
-        ///  --param  'productId = 3ca21d04-26fd-494d-a1fc-08d95c4724a9' \
+        ///  --header 'key: Bearer Bojana' \
+        ///  --param  'productId = 3ca21d04-26fd-494d-a1fc-08d95c4724a9' -> change this for testing\
         ///  --header 'accountId = f2d8362a-124f-41a9-a22b-6e35b3a2953c' \
         /// </remarks>
         /// <response code="200">Success answer</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
-        /// <response code="500">Server error/response>
+        /// <response code="500">Server error</response>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{productId}")]
-        public IActionResult DeleteProduct(Guid productId, [FromHeader] Guid accountId)
+        public IActionResult DeleteProduct(Guid productId, [FromHeader] Guid accountId, [FromHeader] string key)
         {
             try
             {
+                //pristup metodi imaju samo autorizovani korisnici
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
                 var product = productRepository.GetProductById(productId);
 
+                //Samo onaj koji je postavio proizvod moze da ga brise
                 if (product.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
@@ -250,7 +281,7 @@ namespace AdMicroservice.Controllers
             catch (Exception ex)
             {
                 logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Delete error"), null);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting product!");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -263,7 +294,7 @@ namespace AdMicroservice.Controllers
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpOptions]
-        [AllowAnonymous]
+        [AllowAnonymous] //svi mogu da pristupe
         public IActionResult GetProductOptions()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");

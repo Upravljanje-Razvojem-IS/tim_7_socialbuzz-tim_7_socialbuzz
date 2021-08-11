@@ -48,6 +48,7 @@ namespace AdMicroservice.Controllers
         /// <response code="500">Server error</response>
         [HttpGet]
         [HttpHead]
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju sve oglase
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

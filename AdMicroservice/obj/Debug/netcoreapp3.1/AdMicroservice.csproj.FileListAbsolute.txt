@@ -140,3 +140,4 @@ C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\AdMicroservice\obj\Debug\netcoreap
 C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\AdMicroservice\obj\Debug\netcoreapp3.1\AdMicroservice.genruntimeconfig.cache
 C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\AdMicroservice\bin\Debug\netcoreapp3.1\AdMicroservice.xml
 C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\AdMicroservice\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\AdMicroservice\bin\Debug\netcoreapp3.1\Postman\URIS_AdMicroservice.postman_collection.json

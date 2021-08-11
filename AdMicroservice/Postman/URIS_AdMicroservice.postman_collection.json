@@ -1,0 +1,911 @@
+{
+	"info": {
+		"_postman_id": "43200a6a-c8a1-4c0f-b126-915b36211fee",
+		"name": "URIS_AdMicroservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ItemForSale",
+			"item": [
+				{
+					"name": "GetItemForSales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/itemsForSale?firstName=Bojana",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"itemsForSale"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "Bojana"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetItemForSales-Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44349/api/itemsForSale?firstName=Bojana",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44349",
+									"path": [
+										"api",
+										"itemsForSale"
+									],
+									"query": [
+										{
+											"key": "firstName",
+											"value": "Bojana"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 11 Aug 2021 21:54:53 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"itemForSaleId\": \"4f29d0a1-a000-4b56-9005-1a40ffcea3ae\",\n        \"name\": \"Mobilni telefon Huawei P30 Pro\",\n        \"description\": \"Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.\",\n        \"price\": \"32000.00 RSD\",\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\"\n    }\n]"
+						},
+						{
+							"name": "GetItemForSales-Response without params",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44349/api/itemsForSale",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44349",
+									"path": [
+										"api",
+										"itemsForSale"
+									],
+									"query": [
+										{
+											"key": "firstName",
+											"value": "Bojana",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 11 Aug 2021 21:55:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1135"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"itemForSaleId\": \"4f29d0a1-a000-4b56-9005-1a40ffcea3ae\",\n        \"name\": \"Mobilni telefon Huawei P30 Pro\",\n        \"description\": \"Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.\",\n        \"price\": \"32000.00 RSD\",\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\"\n    },\n    {\n        \"itemForSaleId\": \"86f5ae7c-ef07-4339-9f46-c8f597560565\",\n        \"name\": \"Stevens Jazz bicikl\",\n        \"description\": \"\\ufeff\\ufeff\\ufeffStevens Jazz bicikl u odličnom stanju, točkovi 28, aluminijumski ram, dinamo u prednjem točku, led svetla, menjač Shimano Acera.\",\n        \"price\": \"16500.00 RSD\",\n        \"accountId\": \"1bc6929f-0e75-4bef-a835-7dbb50d9e41a\"\n    },\n    {\n        \"itemForSaleId\": \"1f4aa5b3-a67f-45c5-b519-771a7c09a944\",\n        \"name\": \"Izlivanje noktiju\",\n        \"description\": \"\\ufeff\\ufeff\\ufeffHit nokti za leto 2021. godine su svakako nokti veselih i vedrih boja. Dodjite i uverite se u nas kvaltet.\",\n        \"price\": \"3500.00 RSD\",\n        \"accountId\": \"b1d1e043-85c9-4ee1-9eb7-38314c109607\"\n    },\n    {\n        \"itemForSaleId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\",\n        \"name\": \"Masaza\",\n        \"description\": \"\\ufeff\\ufeff\\ufeffRelax, sportska, parcijalna, teraputska i antistres u prijatnom prostoru sa prijatnim ljudima, dođite i opustite se.\",\n        \"price\": \"2700.00 RSD\",\n        \"accountId\": \"9888cf22-b353-4162-aedc-734ca2dc26a4\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "GetItemForSales",
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/itemsForSale",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"itemsForSale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetItemForSalesOptions",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/itemsForSale",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"itemsForSale"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PastPrice",
+			"item": [
+				{
+					"name": "GetPastPrices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44349/api/pastPrices",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"pastPrices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetPastPrices-Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "key",
+										"value": "Bearer Bojana",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44349/api/pastPrices",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44349",
+									"path": [
+										"api",
+										"pastPrices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 11 Aug 2021 22:28:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "383"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"pastPriceId\": 1,\n        \"itemForSaleId\": \"4f29d0a1-a000-4b56-9005-1a40ffcea3ae\",\n        \"price\": \"36999.00 RSD\"\n    },\n    {\n        \"pastPriceId\": 2,\n        \"itemForSaleId\": \"86f5ae7c-ef07-4339-9f46-c8f597560565\",\n        \"price\": \"15600.00 RSD\"\n    },\n    {\n        \"pastPriceId\": 3,\n        \"itemForSaleId\": \"1f4aa5b3-a67f-45c5-b519-771a7c09a944\",\n        \"price\": \"3200.00 RSD\"\n    },\n    {\n        \"pastPriceId\": 4,\n        \"itemForSaleId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\",\n        \"price\": \"2099.00 RSD\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "GetPastPriceById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44349/api/pastPrices/4f29d0a1-a000-4b56-9005-1a40ffcea3ae",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"pastPrices",
+								"4f29d0a1-a000-4b56-9005-1a40ffcea3ae"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetPastPriceById-Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "key",
+										"value": "Bearer Bojana",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44349/api/pastPrices/4f29d0a1-a000-4b56-9005-1a40ffcea3ae",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44349",
+									"path": [
+										"api",
+										"pastPrices",
+										"4f29d0a1-a000-4b56-9005-1a40ffcea3ae"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 11 Aug 2021 22:22:15 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"pastPriceId\": 1,\n        \"itemForSaleId\": \"4f29d0a1-a000-4b56-9005-1a40ffcea3ae\",\n        \"price\": \"36999.00 RSD\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "CreatePastPrice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"ItemForSaleId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\", \r\n    \"Price\": \"3000.00RSD\"\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44349/api/pastPrices",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"pastPrices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePastPrice",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"ItemForSaleId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\", \r\n    \"Price\": \"10000.00RSD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44349/api/pastPrices/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"pastPrices",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePastPrice",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44349/api/pastPrices/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"pastPrices",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPastPriceOptions",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/pastPrices",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"pastPrices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "GetProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetProducts-Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44349/api/products",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44349",
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 11 Aug 2021 22:58:24 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"itemForSaleId\": \"4f29d0a1-a000-4b56-9005-1a40ffcea3ae\",\n        \"name\": \"Mobilni telefon Huawei P30 Pro\",\n        \"description\": \"Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.\",\n        \"price\": \"32000.00 RSD\",\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\n        \"weight\": \"165g\"\n    },\n    {\n        \"itemForSaleId\": \"86f5ae7c-ef07-4339-9f46-c8f597560565\",\n        \"name\": \"Stevens Jazz bicikl\",\n        \"description\": \"\\ufeff\\ufeff\\ufeffStevens Jazz bicikl u odličnom stanju, točkovi 28, aluminijumski ram, dinamo u prednjem točku, led svetla, menjač Shimano Acera.\",\n        \"price\": \"16500.00 RSD\",\n        \"accountId\": \"1bc6929f-0e75-4bef-a835-7dbb50d9e41a\",\n        \"weight\": \"7.1kg\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "GetProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/products/4f29d0a1-a000-4b56-9005-1a40ffcea3ae",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"products",
+								"4f29d0a1-a000-4b56-9005-1a40ffcea3ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Test\",\r\n        \"description\": \"Test description\",\r\n        \"price\": \"100000.00 RSD\",\r\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n        \"weight\": \"500g\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44349/api/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accountId",
+								"value": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+								"type": "text"
+							},
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Mobilni telefon Huawei P30 Pro\",\r\n        \"description\": \"Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.\",\r\n        \"price\": \"50000.00 RSD\",\r\n        \"accountId\": \"f2d8362a-124f-41a9-a22b-6e35b3a2953c\",\r\n        \"weight\": \"165g\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44349/api/products/4f29d0a1-a000-4b56-9005-1a40ffcea3ae",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"products",
+								"4f29d0a1-a000-4b56-9005-1a40ffcea3ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accountId",
+								"value": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+								"type": "text"
+							},
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44349/api/products/32cb7711-5ac0-48e5-ee58-08d95d1da319",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"products",
+								"32cb7711-5ac0-48e5-ee58-08d95d1da319"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductOptions",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "GetServices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/services",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"services"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetServices-Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44349/api/services",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44349",
+									"path": [
+										"api",
+										"services"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 11 Aug 2021 23:44:06 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"itemForSaleId\": \"1f4aa5b3-a67f-45c5-b519-771a7c09a944\",\n        \"name\": \"Izlivanje noktiju\",\n        \"description\": \"\\ufeff\\ufeff\\ufeffHit nokti za leto 2021. godine su svakako nokti veselih i vedrih boja. Dodjite i uverite se u nas kvaltet.\",\n        \"price\": \"3500.00 RSD\",\n        \"accountId\": \"b1d1e043-85c9-4ee1-9eb7-38314c109607\"\n    },\n    {\n        \"itemForSaleId\": \"2d53fc22-eac4-43bb-8f55-d2b8495603cc\",\n        \"name\": \"Masaza\",\n        \"description\": \"\\ufeff\\ufeff\\ufeffRelax, sportska, parcijalna, teraputska i antistres u prijatnom prostoru sa prijatnim ljudima, dođite i opustite se.\",\n        \"price\": \"2700.00 RSD\",\n        \"accountId\": \"9888cf22-b353-4162-aedc-734ca2dc26a4\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "GetServiceById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/services/1f4aa5b3-a67f-45c5-b519-771a7c09a944",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"services",
+								"1f4aa5b3-a67f-45c5-b519-771a7c09a944"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateService",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test service\",\r\n    \"description\": \"Test description\",\r\n    \"price\": \"5000.00 RSD\",\r\n    \"accountId\": \"b1d1e043-85c9-4ee1-9eb7-38314c109607\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44349/api/services",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateService",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accountId",
+								"value": "b1d1e043-85c9-4ee1-9eb7-38314c109607",
+								"type": "text"
+							},
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Update Test service\",\r\n    \"description\": \"Update Test description\",\r\n    \"price\": \"5000.00 RSD\",\r\n    \"accountId\": \"b1d1e043-85c9-4ee1-9eb7-38314c109607\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44349/api/services/0d84a52e-86d0-4741-4ca5-08d95d222bec",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"services",
+								"0d84a52e-86d0-4741-4ca5-08d95d222bec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteService",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accountId",
+								"value": "b1d1e043-85c9-4ee1-9eb7-38314c109607",
+								"type": "text"
+							},
+							{
+								"key": "key",
+								"value": "Bearer Bojana",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44349/api/services/0d84a52e-86d0-4741-4ca5-08d95d222bec",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"services",
+								"0d84a52e-86d0-4741-4ca5-08d95d222bec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetServiceOptions",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/services",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"services"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
