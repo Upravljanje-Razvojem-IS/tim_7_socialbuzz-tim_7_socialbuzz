@@ -43,7 +43,7 @@
             </summary>
             <returns>List of all past prices</returns>
             <remarks> 
-            GET 'https://localhost:44349/api/pastPrices'
+            GET 'https://localhost:44349/api/pastPrices' \
             --header 'key: Bearer Bojana'
             </remarks>
             <param name="key">Authorization Key Value</param>
