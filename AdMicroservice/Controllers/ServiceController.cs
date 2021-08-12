@@ -1,5 +1,6 @@
 ﻿using AdMicroservice.Data.ItemForSale;
 using AdMicroservice.Entities;
+using AdMicroservice.Helpers;
 using AdMicroservice.Logger;
 using AdMicroservice.Models.DTO;
 using AutoMapper;
@@ -29,14 +30,17 @@ namespace AdMicroservice.Controllers
         private readonly ILoggerMockRepository logger;
         private readonly IHttpContextAccessor contextAccessor;
 
+        private readonly IAuthHelper auth;
+
         public ServiceController(IServiceRepository serviceRepository, IMapper mapper, ILoggerMockRepository logger,
-                                  LinkGenerator linkGenerator, IHttpContextAccessor contextAccessor)
+                                  LinkGenerator linkGenerator, IHttpContextAccessor contextAccessor, IAuthHelper auth)
         {
             this.serviceRepository = serviceRepository;
             this.mapper = mapper;
             this.linkGenerator = linkGenerator;
             this.logger = logger;
             this.contextAccessor = contextAccessor;
+            this.auth = auth;
         }
 
         /// <summary>
@@ -51,10 +55,10 @@ namespace AdMicroservice.Controllers
         /// <response code="204">No content</response>
         /// <response code="500">Server error</response>
         [HttpGet]
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju sve usluge
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
         public ActionResult<List<Service>> GetServices(string sName)
         {
 
@@ -85,6 +89,7 @@ namespace AdMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{serviceId}")]
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju usluge po id-ju
         public ActionResult<Service> GetServiceById(Guid serviceId)
         {
 
@@ -103,29 +108,37 @@ namespace AdMicroservice.Controllers
         /// <summary>
         /// Add new service
         /// </summary>
-        /// <param name="serviceDto">Model of service</param
+        /// <param name="serviceDto">Model of service</param>
+        /// <param name="key">Authorization Key Value</param>
         /// <remarks>
         /// POST 'https://localhost:44349/api/services/'\
+        ///     --header 'key: Bearer Bojana' \
         /// Example: \
-        /// {
+        /// { \
         ///        "name": "Test service", \
         ///        "description": "Test description", \
         ///        "price": "5000.00 RSD", \
         ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
         ///}
-    /// </remarks>
-    /// <response code="201">Returns the created service</response>
-    /// <response code="401">Unauthorized user</response>
-    /// <response code="500">There was an error on the server</response>
-    [Consumes("application/json")]
+        /// </remarks>
+        /// <response code="201">Returns the created service</response>
+        /// <response code="401">Unauthorized user</response>
+        /// <response code="500">There was an error on the server</response>
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public ActionResult<ServiceConfirmationDto> CreateService([FromBody] ServiceCreationDto serviceDto)
+        public ActionResult<ServiceConfirmationDto> CreateService([FromBody] ServiceCreationDto serviceDto, [FromHeader] string key)
         {
             try
             {
+                //pristup metodi imaju samo autorizovani korisnici
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
                 Service service = mapper.Map<Service>(serviceDto);
                 serviceRepository.CreateService(service);
                 serviceRepository.SaveChanges();
@@ -147,13 +160,16 @@ namespace AdMicroservice.Controllers
         /// Update service
         /// </summary>
         /// <param name="serviceUpdateDto">Model of service</param>
+        /// <param name="serviceId">Service id</param>
         /// <param name="accountId">ID of the user who sends the request</param>
-        ///         /// <remarks>
+        /// <param name="key">Authorization Key Value</param>
+        /// <remarks>
         /// PUT 'https://localhost:44349/api/products/'\
-        ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' \
+        ///  --header 'key: Bearer Bojana' \
+        ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
         ///  --header 'accountId = b1d1e043-85c9-4ee1-9eb7-38314c109607' \
         /// Example: \
-        /// {
+        /// { \
         ///        "name": "Update Test service", \
         ///        "description": "Update Test description", \
         ///        "price": "5000.00 RSD", \
@@ -164,18 +180,25 @@ namespace AdMicroservice.Controllers
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
-        /// <response code="500">Server error/response>
+        /// <response code="500">Server error</response>
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut("{serviceId}")]
-        public ActionResult<Product> UpdateService([FromBody] ServiceUpdateDto serviceUpdateDto, Guid serviceId, [FromHeader] Guid accountId)
+        public ActionResult<Product> UpdateService([FromBody] ServiceUpdateDto serviceUpdateDto, Guid serviceId, [FromHeader] Guid accountId, [FromHeader] string key)
         {
             try
             {
+                //pristup metodi imaju samo autorizovani korisnici
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
+                //Samo onaj koji je postavio uslugu moze da je modifikuje
                 if (serviceUpdateDto.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
@@ -205,31 +228,39 @@ namespace AdMicroservice.Controllers
         /// <summary>
         /// Delete services
         /// </summary>
-        /// <param name="serviceId">Id of service/param>
+        /// <param name="serviceId">Id of service</param>
         /// <param name="accountId">ID of the user who sends the request</param>
-        ///         /// <remarks>
+        /// <param name="key">Authorization Key Value</param>
+        /// <remarks>
         /// DELETE 'https://localhost:44349/api/services/'\
-        ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' \
+        ///  --header 'key: Bearer Bojana' \
+        ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing \
         ///  --header 'accountId = b1d1e043-85c9-4ee1-9eb7-38314c109607' \
         /// </remarks>
         /// <response code="200">Success answer</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
-        /// <response code="500">Server error/response>
+        /// <response code="500">Server error</response>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{serviceId}")]
-        public IActionResult DeleteService(Guid serviceId, [FromHeader] Guid accountId)
+        public IActionResult DeleteService(Guid serviceId, [FromHeader] Guid accountId, [FromHeader] string key)
         {
             try
             {
+                //pristup metodi imaju samo autorizovani korisnici
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
                 var service = serviceRepository.GetServiceById(serviceId);
 
+                //Samo onaj koji je postavio uslugu moze da je brise
                 if (service.AccountId != accountId)
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
@@ -249,7 +280,7 @@ namespace AdMicroservice.Controllers
             catch (Exception ex)
             {
                 logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Delete error"), null);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting product!");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -262,7 +293,7 @@ namespace AdMicroservice.Controllers
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpOptions]
-        [AllowAnonymous]
+        [AllowAnonymous] //svi mogu da pristupe
         public IActionResult GetServiceOptions()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");

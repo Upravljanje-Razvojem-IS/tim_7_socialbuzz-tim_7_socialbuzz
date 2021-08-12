@@ -2,6 +2,7 @@ using AdMicroservice.Data.AccountMock;
 using AdMicroservice.Data.ItemForSale;
 using AdMicroservice.Data.PastPrices;
 using AdMicroservice.DBContexts;
+using AdMicroservice.Helpers;
 using AdMicroservice.Logger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -77,6 +78,8 @@ namespace AdMicroservice
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
 
+            services.AddScoped<IAuthHelper, AuthHelper>();
+
             services.AddSingleton<ILoggerMockRepository, LoggerMockRepository>();
 
             services.AddHttpContextAccessor();
@@ -102,7 +105,7 @@ namespace AdMicroservice
                     });
                 });
             }
-            app.UseAuthentication();
+
             app.UseHttpsRedirection();
 
             app.UseSwagger();
