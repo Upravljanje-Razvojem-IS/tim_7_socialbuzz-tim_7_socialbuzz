@@ -70,7 +70,7 @@ namespace AdMicroservice.Controllers
                 return NoContent();
             }
 
-            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get all services"), null);
+            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all services", null);
             return Ok(mapper.Map<List<ServiceConfirmationDto>>(services));
 
         }
@@ -102,7 +102,7 @@ namespace AdMicroservice.Controllers
                 return NotFound();
             }
 
-            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get service by id"), null);
+            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get service by id", null);
             return Ok(mapper.Map<ServiceConfirmationDto>(service));
 
         }
@@ -146,7 +146,7 @@ namespace AdMicroservice.Controllers
                 serviceRepository.CreateService(service);
                 serviceRepository.SaveChanges();
 
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("New service created"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "New service created", null);
 
                 string location = linkGenerator.GetPathByAction("GetServiceById", "Service", new { serviceId = service.ItemForSaleId });
 
@@ -154,7 +154,7 @@ namespace AdMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("There is error while creating service"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "There is error while creating service", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -217,7 +217,7 @@ namespace AdMicroservice.Controllers
                 //Samo onaj koji je postavio uslugu moze da je modifikuje
                 if (serviceUpdateDto.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed! User does not have permission!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, "Not allowed! User does not have permission!");
                 }
 
                 var oldService = serviceRepository.GetServiceById(serviceId);
@@ -230,13 +230,13 @@ namespace AdMicroservice.Controllers
                 serviceRepository.UpdateService(oldService, newService);
 
                 serviceRepository.SaveChanges();
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Product updated"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Product updated", null);
 
                 return Ok(oldService);
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Update error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Update error", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -280,12 +280,12 @@ namespace AdMicroservice.Controllers
                 //Samo onaj koji je postavio uslugu moze da je brise
                 if (service.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, "Not allowed!");
                 }
 
                 if (service == null)
                 {
-                    return NotFound();
+                    return StatusCode(StatusCodes.Status404NotFound, "There is no service!");
                 }
 
                 serviceRepository.DeleteService(serviceId);

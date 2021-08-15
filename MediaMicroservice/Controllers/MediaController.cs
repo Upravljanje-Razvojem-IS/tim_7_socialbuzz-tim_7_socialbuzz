@@ -99,7 +99,7 @@ namespace MediaMicroservice.Controllers
                 {
                     return NoContent();
                 }
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get media"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get media", null);
                 return Ok(media);
             }
             catch (Exception ex)
@@ -134,7 +134,7 @@ namespace MediaMicroservice.Controllers
                 {
                     return StatusCode(StatusCodes.Status404NotFound, "Not found");
                 }
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get media by id"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get media by id", null);
                 return Ok(media);
             }
             catch (Exception ex)
@@ -180,7 +180,7 @@ namespace MediaMicroservice.Controllers
                 {
                     return StatusCode(StatusCodes.Status404NotFound, "There is no media!");
                 }
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get media by itemForSaleId"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get media by itemForSaleId", null);
                 return Ok(media);
             }
             catch (Exception ex)
@@ -245,7 +245,7 @@ namespace MediaMicroservice.Controllers
                 mediaRepository.CreateMedia(media);
                 mediaRepository.SaveChanges();
 
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Create new media"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Create new media", null);
 
                 string location = linkGenerator.GetPathByAction("GetMediaById", "Media", new { mediaId = media.MediaId});
                 return Created(location, media);
@@ -330,7 +330,7 @@ namespace MediaMicroservice.Controllers
 
                 mediaRepository.UpdateMedia(oldMedia, newMedia);
                 mediaRepository.SaveChanges();
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Updated media."), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Updated media.", null);
 
                 return Ok(oldMedia);
             }
@@ -392,14 +392,14 @@ namespace MediaMicroservice.Controllers
                 mediaRepository.DeleteMedia(mediaId);
                 mediaRepository.SaveChanges();
 
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Successfully deleted media"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Successfully deleted media", null);
 
                 return NoContent();
             }
 
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Error while deleting media"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error while deleting media", null);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

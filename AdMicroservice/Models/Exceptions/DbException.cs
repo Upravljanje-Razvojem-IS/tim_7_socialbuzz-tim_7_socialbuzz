@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace AdMicroservice.Models.Exceptions
 {
-    public class DbExceptions : Exception
+    [Serializable]
+    public class DbException : Exception
     {
-        public DbExceptions(string message) : base(message)
+        public DbException(string message) : base(message)
         {
 
         }

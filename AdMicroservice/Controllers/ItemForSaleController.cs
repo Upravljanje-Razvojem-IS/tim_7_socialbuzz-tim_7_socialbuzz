@@ -58,8 +58,8 @@ namespace AdMicroservice.Controllers
         {
             try
             {
-                List<Product> products = new List<Product>();
-                List<Service> services = new List<Service>();
+                List<Product> products;
+                List<Service> services;
                 if (!string.IsNullOrEmpty(firstName))
                 {
                     var user = accountMockRepository.GetAccountByFirstName(firstName);
@@ -83,7 +83,7 @@ namespace AdMicroservice.Controllers
                 List<ItemForSaleDto> itemForSale = new List<ItemForSaleDto>();
                 itemForSale.AddRange(mapper.Map<List<ItemForSaleDto>>(products));
                 itemForSale.AddRange(mapper.Map<List<ItemForSaleDto>>(services));
-                if (itemForSale.Count == 0 || itemForSale==null)
+                if (itemForSale.Count == 0)
                 {
                     return NoContent();
                 }

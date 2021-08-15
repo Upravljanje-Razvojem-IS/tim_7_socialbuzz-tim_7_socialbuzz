@@ -69,7 +69,7 @@ namespace AdMicroservice.Controllers
                 return NoContent();
             }
 
-            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get all products"), null);
+            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all products", null);
             return Ok(mapper.Map<List<ProductConfirmationDto>>(products));
 
         }
@@ -101,7 +101,7 @@ namespace AdMicroservice.Controllers
                 return NotFound();
             }
 
-            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get product by id"), null);
+            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get product by id", null);
             return Ok(mapper.Map<ProductConfirmationDto>(product));
 
         }
@@ -146,7 +146,7 @@ namespace AdMicroservice.Controllers
                 productRepository.CreateProduct(product);
                 productRepository.SaveChanges();
 
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("New product created"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "New product created", null);
 
                 string location = linkGenerator.GetPathByAction("GetProductById", "Product", new { productId = product.ItemForSaleId });
 
@@ -154,7 +154,7 @@ namespace AdMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("There is error while creating product"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "There is error while creating product", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -219,7 +219,7 @@ namespace AdMicroservice.Controllers
                 //Samo onaj koji je postavio proizvod moze da ga modifikuje
                 if (productUpdateDto.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed! User does not have permission!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, "Not allowed! User does not have permission!");
                 }
 
                 var oldProduct = productRepository.GetProductById(productId);
@@ -232,13 +232,13 @@ namespace AdMicroservice.Controllers
                 productRepository.UpdateProduct(oldProduct, newProduct);
 
                 productRepository.SaveChanges();
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Product updated"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Product updated", null);
 
                 return Ok(oldProduct);
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Update error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Update error", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -282,12 +282,12 @@ namespace AdMicroservice.Controllers
                 //Samo onaj koji je postavio proizvod moze da ga brise
                 if (product.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, "Not allowed!");
                 }
 
                 if (product == null)
                 {
-                    return NotFound();
+                    return StatusCode(StatusCodes.Status404NotFound, "There is no product!");
                 }
 
                 productRepository.DeleteProduct(productId);
@@ -298,7 +298,7 @@ namespace AdMicroservice.Controllers
 
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Delete error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Delete error", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

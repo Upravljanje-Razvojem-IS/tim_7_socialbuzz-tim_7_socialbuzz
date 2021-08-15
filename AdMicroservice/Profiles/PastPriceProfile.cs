@@ -13,7 +13,7 @@ namespace AdMicroservice.Profiles
         public PastPriceProfile()
         {
             CreateMap<PastPriceDto, PastPrice>();
-            CreateMap<PastPriceCreationDTO, PastPrice>();
+            CreateMap<PastPriceCreationDto, PastPrice>();
         }
     }
 }

@@ -86,11 +86,11 @@
             <response code="404">Not found</response>
             <response code="500">Error on the server</response>
         </member>
-        <member name="M:AdMicroservice.Controllers.PastPriceController.CreatePastPrice(AdMicroservice.Models.DTO.PastPriceCreationDTO,System.String)">
+        <member name="M:AdMicroservice.Controllers.PastPriceController.CreatePastPrice(AdMicroservice.Models.DTO.PastPriceCreationDto,System.String)">
             <summary>
             Create past prices
             </summary>
-            <param name="pastPriceCreationDTO">Model of past price</param>
+            <param name="pastPriceCreationDto">Model of past price</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
             Example of request \
@@ -504,12 +504,12 @@
             Id of the user who adds the item for sale to the wall
             </summary>
         </member>
-        <member name="P:AdMicroservice.Models.DTO.PastPriceCreationDTO.ItemForSaleId">
+        <member name="P:AdMicroservice.Models.DTO.PastPriceCreationDto.ItemForSaleId">
             <summary>
             Item for sale id to which the previous price applies
             </summary>
         </member>
-        <member name="P:AdMicroservice.Models.DTO.PastPriceCreationDTO.Price">
+        <member name="P:AdMicroservice.Models.DTO.PastPriceCreationDto.Price">
             <summary>
             Amount of past price
             </summary>
