@@ -179,6 +179,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetItemForSaleById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44349/api/itemsForSale/4f29d0a1-a000-4b56-9005-1a40ffcea3ae",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44349",
+							"path": [
+								"api",
+								"itemsForSale",
+								"4f29d0a1-a000-4b56-9005-1a40ffcea3ae"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

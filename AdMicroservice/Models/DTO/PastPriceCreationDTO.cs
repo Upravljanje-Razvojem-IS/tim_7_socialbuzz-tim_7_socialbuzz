@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdMicroservice.Models.DTO
 {
-    public class PastPriceCreationDTO
+    public class PastPriceCreationDto
     {
         /// <summary>
         /// Item for sale id to which the previous price applies

@@ -53,6 +53,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <returns>List of all past prices</returns>
         /// <remarks> 
+        /// Example of request \
         /// GET 'https://localhost:44349/api/pastPrices' \
         /// --header 'key: Bearer Bojana'
         /// </remarks>
@@ -81,7 +82,7 @@ namespace AdMicroservice.Controllers
                 return NotFound();
             }
 
-            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get all past prices"), null);
+            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get all past prices", null);
             return Ok(pastPrices);
 
         }
@@ -92,11 +93,12 @@ namespace AdMicroservice.Controllers
         /// <param name="itemForSaleId">Id of item for sale</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>        
+        /// Example of request \
         /// GET 'https://localhost:44349/api/pastPrices/' \
         ///     --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
         ///     --header 'key: Bearer Bojana' 
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - return past price by id</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Error on the server</response>
@@ -120,7 +122,7 @@ namespace AdMicroservice.Controllers
                 return NotFound();
             }
 
-            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Get past price by id"), null);
+            logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get past price by id", null);
             return Ok(pastPrice);
  
         }
@@ -128,9 +130,10 @@ namespace AdMicroservice.Controllers
         /// <summary>
         /// Create past prices
         /// </summary>
-        /// <param name="pastPriceCreationDTO">Model of past price</param>
+        /// <param name="pastPriceCreationDto">Model of past price</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// POST 'https://localhost:44349/api/pastPrices/'\
         ///     --header 'key: Bearer Bojana' \
         /// Example: \
@@ -147,7 +150,7 @@ namespace AdMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public ActionResult<PastPrice> CreatePastPrice([FromBody] PastPriceCreationDTO pastPriceCreationDTO, [FromHeader] string key)
+        public ActionResult<PastPrice> CreatePastPrice([FromBody] PastPriceCreationDto pastPriceCreationDto, [FromHeader] string key)
         {
             try
             {
@@ -157,27 +160,27 @@ namespace AdMicroservice.Controllers
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
                 }
 
-                PastPrice pastPrice = mapper.Map<PastPrice>(pastPriceCreationDTO);
+                PastPrice pastPrice = mapper.Map<PastPrice>(pastPriceCreationDto);
 
                 Product product = productRepository.GetProductById(pastPrice.ItemForSaleId);
                 Service service = serviceRepository.GetServiceById(pastPrice.ItemForSaleId);
                 //prosla cena mora da se odnosi na neki proizvod ili uslugu koji vec postoje
                 if (product == null && service == null)
                 {
-                    throw new DbExceptions("Item for sale with that id does not exists!");
+                    throw new DbException("Item for sale with that id does not exists!");
                 }
 
                 pastPriceRepository.CreatePastPrice(pastPrice);
                 pastPriceRepository.SaveChanges();
 
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("New past price created"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "New past price created", null);
 
                 var location = linkGenerator.GetPathByAction("GetPastPriceById", "PastPrice", new { ItemForSaleId = pastPrice.ItemForSaleId });
                 return Created(location, pastPrice);
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Create error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Create error", null);
        
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -190,16 +193,17 @@ namespace AdMicroservice.Controllers
         /// <param name="pastPriceId">Past price id</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// PUT 'https://localhost:44349/api/pastPrices/'\
         ///  --header 'key: Bearer Bojana' \
-        ///  --param  'pastPriceId = 5' \
+        ///  --param  'pastPriceId = 9' \
         /// Example: \
         /// {   
-        ///  "ItemForSaleId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
-        ///  "Price": "10000.00RSD \
+        ///  "ItemForSaleId": "4f29d0a1-a000-4b56-9005-1a40ffcea3ae", \
+        ///  "Price": "40000.00RSD \
         /// } 
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - updated price</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
@@ -232,19 +236,19 @@ namespace AdMicroservice.Controllers
                 //prosla cena mora da se odnosi na neki proizvod ili uslugu koji vec postoje
                 if (product == null && service == null)
                 {
-                    throw new DbExceptions("Item for sale with that id does not exists!");
+                    throw new DbException("Item for sale with that id does not exists!");
                 }
 
                 pastPriceRepository.UpdatePastPrice(oldPastPrice, newPastPrice);
                 pastPriceRepository.SaveChanges();
 
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Updated past price"), null);
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Updated past price", null);
 
                 return Ok(oldPastPrice);
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Update error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Update error", null);
     
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -256,12 +260,13 @@ namespace AdMicroservice.Controllers
         /// <param name="pastPriceId">Id of past price</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// DELETE 'https://localhost:44349/api/pastPrices/'\
-        ///  --param  'pastPriceId = 5'
+        ///  --param  'pastPriceId = 10'
         ///  --header 'key: Bearer Bojana' \
         /// </remarks>
-        /// <response code="204">Success answer</response>
-        /// <response code="401" >Unauthorized user</response>
+        /// <response code="204">Success answer - deleted price</response>
+        /// <response code="401">Unauthorized user</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -293,7 +298,7 @@ namespace AdMicroservice.Controllers
 
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Delete error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Delete error", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -303,6 +308,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         /// <remarks>
+        /// Example of request \
         /// OPTIONS 'https://localhost:44349/api/pastPrices'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]
