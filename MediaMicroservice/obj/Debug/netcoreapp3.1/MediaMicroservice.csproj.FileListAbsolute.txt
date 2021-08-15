@@ -69,3 +69,4 @@ C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\MediaMicroservice\obj\Debug\netcor
 C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\MediaMicroservice\obj\Debug\netcoreapp3.1\MediaMicroservice.dll
 C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\MediaMicroservice\obj\Debug\netcoreapp3.1\MediaMicroservice.pdb
 C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\MediaMicroservice\obj\Debug\netcoreapp3.1\MediaMicroservice.genruntimeconfig.cache
+C:\Users\PC\tim_7_socialbuzz-tim_7_socialbuzz\MediaMicroservice\bin\Debug\netcoreapp3.1\MediaMicroservice.xml

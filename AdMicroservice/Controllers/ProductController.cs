@@ -49,13 +49,14 @@ namespace AdMicroservice.Controllers
         /// <param name="pName">Name of the product</param>
         /// <returns>List of products</returns>
         /// <remarks> 
+        /// Example of request \
         /// GET 'https://localhost:44349/api/products' \
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - return all products</response>
         /// <response code="204">No content</response>
         /// <response code="500">Server error</response>
         [HttpGet]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju sve proizvode
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi (GET je bezbedna i idempotentna metoda), tj. mogu da izlistaju sve proizvode
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -78,6 +79,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <param name="productId">Id of one product</param>
         /// <remarks>        
+        /// Example of request \
         /// GET 'https://localhost:44349/api/products/' \
         ///     --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
         /// </remarks>
@@ -110,6 +112,7 @@ namespace AdMicroservice.Controllers
         /// <param name="productDto">Model of product</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// POST 'https://localhost:44349/api/products/'\
         /// --header 'key: Bearer Bojana' \
         /// Example: \
@@ -164,6 +167,7 @@ namespace AdMicroservice.Controllers
         /// <param name="accountId">ID of the user who sends the request</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of successful request \
         /// PUT 'https://localhost:44349/api/products/'\
         ///  --header 'key: Bearer Bojana' \
         ///  --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
@@ -175,9 +179,22 @@ namespace AdMicroservice.Controllers
         ///     "price": "150000.00 RSD",
         ///     "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
         ///     "weight": "165g" \
+        /// } \
+        /// Example of bad request \
+        /// PUT 'https://localhost:44349/api/products/'\
+        ///  --header 'key: Bearer Bojana' \
+        ///  --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
+        ///  --header 'accountId = 1bc6929f-0e75-4bef-a835-7dbb50d9e41a' -> this user can not change product \
+        /// Example: \
+        /// { \
+        ///     "name": "Mobilni telefon Huawei P40 Pro",
+        ///     "description": "Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.",
+        ///     "price": "150000.00 RSD",
+        ///     "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+        ///     "weight": "165g" \
         /// }
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - updated product</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
@@ -202,7 +219,7 @@ namespace AdMicroservice.Controllers
                 //Samo onaj koji je postavio proizvod moze da ga modifikuje
                 if (productUpdateDto.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed! User does not have permission!"));
                 }
 
                 var oldProduct = productRepository.GetProductById(productId);
@@ -233,12 +250,13 @@ namespace AdMicroservice.Controllers
         /// <param name="accountId">Id of the user who sends the request</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// DELETE 'https://localhost:44349/api/products/'\
         ///  --header 'key: Bearer Bojana' \
         ///  --param  'productId = 3ca21d04-26fd-494d-a1fc-08d95c4724a9' -> change this for testing\
         ///  --header 'accountId = f2d8362a-124f-41a9-a22b-6e35b3a2953c' \
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="204">Deleted product</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
@@ -290,6 +308,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         /// <remarks>
+        /// Example of request \
         /// OPTIONS 'https://localhost:44349/api/products'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]

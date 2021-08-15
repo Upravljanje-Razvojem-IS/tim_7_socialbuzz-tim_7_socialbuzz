@@ -16,6 +16,7 @@
             <param name="firstName">First name of the user who added item</param>
             <returns>List of items for sale</returns>
             <remarks>
+            Example of request \
             GET 'https://localhost:44349/api/itemsForSale'
             </remarks>
             <response code="200">Success answer - return items</response>
@@ -27,10 +28,25 @@
             <summary>
             Returns options for working with items for sale
             </summary>
-            <returns>options for a given URL</returns>
+            <returns>Options for a given URL</returns>
             <remarks>
+            Example of request \
             OPTIONS 'https://localhost:44349/api/itemsForSale'
             </remarks>
+        </member>
+        <member name="M:AdMicroservice.Controllers.ItemForSaleController.GetItemForSaleById(System.Guid)">
+             <summary>
+             Returns item for sale by id
+             </summary>
+             <param name="itemForSaleId">Id of item for sale</param>
+             <remarks>        
+             Example of request \
+             GET 'https://localhost:44349/api/itemsForSale/' \
+                 --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
+             </remarks>
+            <response code="200">Success answer - return item by id</response>
+             <response code="404">Not found</response>
+             <response code="500">Server error</response>
         </member>
         <member name="T:AdMicroservice.Controllers.PastPriceController">
             <summary>
@@ -43,6 +59,7 @@
             </summary>
             <returns>List of all past prices</returns>
             <remarks> 
+            Example of request \
             GET 'https://localhost:44349/api/pastPrices' \
             --header 'key: Bearer Bojana'
             </remarks>
@@ -59,11 +76,12 @@
             <param name="itemForSaleId">Id of item for sale</param>
             <param name="key">Authorization Key Value</param>
             <remarks>        
+            Example of request \
             GET 'https://localhost:44349/api/pastPrices/' \
                 --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
                 --header 'key: Bearer Bojana' 
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - return past price by id</response>
             <response code="401">Unauthorized user</response>
             <response code="404">Not found</response>
             <response code="500">Error on the server</response>
@@ -75,6 +93,7 @@
             <param name="pastPriceCreationDTO">Model of past price</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of request \
             POST 'https://localhost:44349/api/pastPrices/'\
                 --header 'key: Bearer Bojana' \
             Example: \
@@ -95,16 +114,17 @@
             <param name="pastPriceId">Past price id</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of request \
             PUT 'https://localhost:44349/api/pastPrices/'\
              --header 'key: Bearer Bojana' \
-             --param  'pastPriceId = 5' \
+             --param  'pastPriceId = 9' \
             Example: \
             {   
-             "ItemForSaleId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
-             "Price": "10000.00RSD \
+             "ItemForSaleId": "4f29d0a1-a000-4b56-9005-1a40ffcea3ae", \
+             "Price": "40000.00RSD \
             } 
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - updated price</response>
             <response code="401">Unauthorized user</response>
             <response code="404">Not found</response>
             <response code="500">Server error</response>
@@ -116,12 +136,13 @@
             <param name="pastPriceId">Id of past price</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of request \
             DELETE 'https://localhost:44349/api/pastPrices/'\
-             --param  'pastPriceId = 5'
+             --param  'pastPriceId = 10'
              --header 'key: Bearer Bojana' \
             </remarks>
-            <response code="204">Success answer</response>
-            <response code="401" >Unauthorized user</response>
+            <response code="204">Success answer - deleted price</response>
+            <response code="401">Unauthorized user</response>
             <response code="404">Not found</response>
             <response code="500">Server error</response>
         </member>
@@ -131,6 +152,7 @@
             </summary>
             <returns></returns>
             <remarks>
+            Example of request \
             OPTIONS 'https://localhost:44349/api/pastPrices'
             </remarks>
         </member>
@@ -146,9 +168,10 @@
             <param name="pName">Name of the product</param>
             <returns>List of products</returns>
             <remarks> 
+            Example of request \
             GET 'https://localhost:44349/api/products' \
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - return all products</response>
             <response code="204">No content</response>
             <response code="500">Server error</response>
         </member>
@@ -158,6 +181,7 @@
             </summary>
             <param name="productId">Id of one product</param>
             <remarks>        
+            Example of request \
             GET 'https://localhost:44349/api/products/' \
                 --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
             </remarks>
@@ -172,6 +196,7 @@
             <param name="productDto">Model of product</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of request \
             POST 'https://localhost:44349/api/products/'\
             --header 'key: Bearer Bojana' \
             Example: \
@@ -196,6 +221,7 @@
             <param name="accountId">ID of the user who sends the request</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of successful request \
             PUT 'https://localhost:44349/api/products/'\
              --header 'key: Bearer Bojana' \
              --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
@@ -207,9 +233,22 @@
                 "price": "150000.00 RSD",
                 "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
                 "weight": "165g" \
+            } \
+            Example of bad request \
+            PUT 'https://localhost:44349/api/products/'\
+             --header 'key: Bearer Bojana' \
+             --param  'productId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
+             --header 'accountId = 1bc6929f-0e75-4bef-a835-7dbb50d9e41a' -> this user can not change product \
+            Example: \
+            { \
+                "name": "Mobilni telefon Huawei P40 Pro",
+                "description": "Huawei P30 Pro, 16gb RAM, 64gb memorije, dual sim.",
+                "price": "150000.00 RSD",
+                "accountId": "f2d8362a-124f-41a9-a22b-6e35b3a2953c",
+                "weight": "165g" \
             }
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - updated product</response>
             <response code="401">Unauthorized user</response>
             <response code="403">Not allowed</response>
             <response code="404">Not found</response>
@@ -223,12 +262,13 @@
             <param name="accountId">Id of the user who sends the request</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of request \
             DELETE 'https://localhost:44349/api/products/'\
              --header 'key: Bearer Bojana' \
              --param  'productId = 3ca21d04-26fd-494d-a1fc-08d95c4724a9' -> change this for testing\
              --header 'accountId = f2d8362a-124f-41a9-a22b-6e35b3a2953c' \
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="204">Deleted product</response>
             <response code="401">Unauthorized user</response>
             <response code="403">Not allowed</response>
             <response code="404">Not found</response>
@@ -240,6 +280,7 @@
             </summary>
             <returns></returns>
             <remarks>
+            Example of request \
             OPTIONS 'https://localhost:44349/api/products'
             </remarks>
         </member>
@@ -255,9 +296,10 @@
             <param name="sName">Name of the service</param>
             <returns>List of services</returns>
             <remarks> 
+            Example of request \
             GET 'https://localhost:44349/api/services' \
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - return all services</response>
             <response code="204">No content</response>
             <response code="500">Server error</response>
         </member>
@@ -266,11 +308,12 @@
             Returns service with specific serviceId
             </summary>
             <param name="serviceId">Id of one service</param>
-            <remarks>        
+            <remarks>    
+            Example of request \
             GET 'https://localhost:44349/api/services/' \
                 --param  'serviceId = 1f4aa5b3-a67f-45c5-b519-771a7c09a944'
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - return service by id</response>
             <response code="404">Not found</response>
             <response code="500">Server error</response>
         </member>
@@ -281,6 +324,7 @@
              <param name="serviceDto">Model of service</param>
              <param name="key">Authorization Key Value</param>
              <remarks>
+             Example of request \
              POST 'https://localhost:44349/api/services/'\
                  --header 'key: Bearer Bojana' \
              Example: \
@@ -304,6 +348,7 @@
             <param name="accountId">ID of the user who sends the request</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of successful request \
             PUT 'https://localhost:44349/api/products/'\
              --header 'key: Bearer Bojana' \
              --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
@@ -314,9 +359,21 @@
                    "description": "Update Test description", \
                    "price": "5000.00 RSD", \
                    "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
-            }
+            } \
+            Example of bad request \
+            PUT 'https://localhost:44349/api/products/'\
+             --header 'key: Bearer Bojana' \
+             --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
+             --header 'accountId = 9888cf22-b353-4162-aedc-734ca2dc26a4' \
+            Example: \
+            { \
+                   "name": "Update Test service", \
+                   "description": "Update Test description", \
+                   "price": "5000.00 RSD", \
+                   "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
+            } \
             </remarks>
-            <response code="200">Success answer</response>
+            <response code="200">Success answer - updated service</response>
             <response code="401">Unauthorized user</response>
             <response code="403">Not allowed</response>
             <response code="404">Not found</response>
@@ -330,6 +387,7 @@
             <param name="accountId">ID of the user who sends the request</param>
             <param name="key">Authorization Key Value</param>
             <remarks>
+            Example of request \
             DELETE 'https://localhost:44349/api/services/'\
              --header 'key: Bearer Bojana' \
              --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing \
@@ -347,6 +405,7 @@
             </summary>
             <returns></returns>
             <remarks>
+            Example of request
             OPTIONS 'https://localhost:44349/api/services'
             </remarks>
         </member>

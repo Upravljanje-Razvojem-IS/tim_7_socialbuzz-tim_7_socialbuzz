@@ -53,6 +53,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <returns>List of all past prices</returns>
         /// <remarks> 
+        /// Example of request \
         /// GET 'https://localhost:44349/api/pastPrices' \
         /// --header 'key: Bearer Bojana'
         /// </remarks>
@@ -92,11 +93,12 @@ namespace AdMicroservice.Controllers
         /// <param name="itemForSaleId">Id of item for sale</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>        
+        /// Example of request \
         /// GET 'https://localhost:44349/api/pastPrices/' \
         ///     --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae' \
         ///     --header 'key: Bearer Bojana' 
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - return past price by id</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Error on the server</response>
@@ -131,6 +133,7 @@ namespace AdMicroservice.Controllers
         /// <param name="pastPriceCreationDTO">Model of past price</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// POST 'https://localhost:44349/api/pastPrices/'\
         ///     --header 'key: Bearer Bojana' \
         /// Example: \
@@ -190,16 +193,17 @@ namespace AdMicroservice.Controllers
         /// <param name="pastPriceId">Past price id</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// PUT 'https://localhost:44349/api/pastPrices/'\
         ///  --header 'key: Bearer Bojana' \
-        ///  --param  'pastPriceId = 5' \
+        ///  --param  'pastPriceId = 9' \
         /// Example: \
         /// {   
-        ///  "ItemForSaleId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
-        ///  "Price": "10000.00RSD \
+        ///  "ItemForSaleId": "4f29d0a1-a000-4b56-9005-1a40ffcea3ae", \
+        ///  "Price": "40000.00RSD \
         /// } 
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - updated price</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
@@ -256,12 +260,13 @@ namespace AdMicroservice.Controllers
         /// <param name="pastPriceId">Id of past price</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// DELETE 'https://localhost:44349/api/pastPrices/'\
-        ///  --param  'pastPriceId = 5'
+        ///  --param  'pastPriceId = 10'
         ///  --header 'key: Bearer Bojana' \
         /// </remarks>
-        /// <response code="204">Success answer</response>
-        /// <response code="401" >Unauthorized user</response>
+        /// <response code="204">Success answer - deleted price</response>
+        /// <response code="401">Unauthorized user</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -303,6 +308,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         /// <remarks>
+        /// Example of request \
         /// OPTIONS 'https://localhost:44349/api/pastPrices'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]

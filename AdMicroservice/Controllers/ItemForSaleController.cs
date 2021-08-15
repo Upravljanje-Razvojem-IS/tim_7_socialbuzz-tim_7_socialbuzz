@@ -40,6 +40,7 @@ namespace AdMicroservice.Controllers
         /// <param name="firstName">First name of the user who added item</param>
         /// <returns>List of items for sale</returns>
         /// <remarks>
+        /// Example of request \
         /// GET 'https://localhost:44349/api/itemsForSale'
         /// </remarks>
         /// <response code="200">Success answer - return items</response>
@@ -48,7 +49,7 @@ namespace AdMicroservice.Controllers
         /// <response code="500">Server error</response>
         [HttpGet]
         [HttpHead]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju sve oglase
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi (GET je bezbedna i idempotentna metoda), tj. mogu da izlistaju sve oglase
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -97,8 +98,9 @@ namespace AdMicroservice.Controllers
         /// <summary>
         /// Returns options for working with items for sale
         /// </summary>
-        /// <returns>options for a given URL</returns>
+        /// <returns>Options for a given URL</returns>
         /// <remarks>
+        /// Example of request \
         /// OPTIONS 'https://localhost:44349/api/itemsForSale'
         /// </remarks>
         [HttpOptions]
@@ -107,6 +109,46 @@ namespace AdMicroservice.Controllers
         {
             Response.Headers.Add("Allow", "GET");
             return Ok();
+        }
+
+        /// <summary>
+        /// Returns item for sale by id
+        /// </summary>
+        /// <param name="itemForSaleId">Id of item for sale</param>
+        /// <remarks>        
+        /// Example of request \
+        /// GET 'https://localhost:44349/api/itemsForSale/' \
+        ///     --param  'itemForSaleId = 4f29d0a1-a000-4b56-9005-1a40ffcea3ae'
+        /// </remarks>
+        ///<response code="200">Success answer - return item by id</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Server error</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        [HttpGet("{itemForSaleId}")]
+        public ActionResult<ItemForSaleDto> GetItemForSaleById(Guid itemForSaleId)
+        {
+            try
+            {
+                var product = productRepository.GetProductById(itemForSaleId);
+                if (product != null)
+                {
+                    return Ok(mapper.Map<ItemForSaleDto>(product));
+                }
+
+                var service = serviceRepository.GetServiceById(itemForSaleId);
+                if (service != null)
+                {
+                    return Ok(mapper.Map<ItemForSaleDto>(service));
+                }
+                return StatusCode(StatusCodes.Status404NotFound, "Not found");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

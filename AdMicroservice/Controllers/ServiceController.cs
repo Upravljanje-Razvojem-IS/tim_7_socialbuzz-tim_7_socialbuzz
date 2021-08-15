@@ -49,13 +49,14 @@ namespace AdMicroservice.Controllers
         /// <param name="sName">Name of the service</param>
         /// <returns>List of services</returns>
         /// <remarks> 
+        /// Example of request \
         /// GET 'https://localhost:44349/api/services' \
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - return all services</response>
         /// <response code="204">No content</response>
         /// <response code="500">Server error</response>
         [HttpGet]
-        [AllowAnonymous] //svi korisnici mogu da pristupe metodi, tj. mogu da izlistaju sve usluge
+        [AllowAnonymous] //svi korisnici mogu da pristupe metodi (GET je bezbedna i idempotentna metoda), tj. mogu da izlistaju sve usluge
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -78,11 +79,12 @@ namespace AdMicroservice.Controllers
         /// Returns service with specific serviceId
         /// </summary>
         /// <param name="serviceId">Id of one service</param>
-        /// <remarks>        
+        /// <remarks>    
+        /// Example of request \
         /// GET 'https://localhost:44349/api/services/' \
         ///     --param  'serviceId = 1f4aa5b3-a67f-45c5-b519-771a7c09a944'
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - return service by id</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -111,6 +113,7 @@ namespace AdMicroservice.Controllers
         /// <param name="serviceDto">Model of service</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// POST 'https://localhost:44349/api/services/'\
         ///     --header 'key: Bearer Bojana' \
         /// Example: \
@@ -164,6 +167,7 @@ namespace AdMicroservice.Controllers
         /// <param name="accountId">ID of the user who sends the request</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of successful request \
         /// PUT 'https://localhost:44349/api/products/'\
         ///  --header 'key: Bearer Bojana' \
         ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
@@ -174,9 +178,21 @@ namespace AdMicroservice.Controllers
         ///        "description": "Update Test description", \
         ///        "price": "5000.00 RSD", \
         ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
-        /// }
+        /// } \
+        /// Example of bad request \
+        /// PUT 'https://localhost:44349/api/products/'\
+        ///  --header 'key: Bearer Bojana' \
+        ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing\
+        ///  --header 'accountId = 9888cf22-b353-4162-aedc-734ca2dc26a4' \
+        /// Example: \
+        /// { \
+        ///        "name": "Update Test service", \
+        ///        "description": "Update Test description", \
+        ///        "price": "5000.00 RSD", \
+        ///        "accountId": "b1d1e043-85c9-4ee1-9eb7-38314c109607" \
+        /// } \
         /// </remarks>
-        /// <response code="200">Success answer</response>
+        /// <response code="200">Success answer - updated service</response>
         /// <response code="401">Unauthorized user</response>
         /// <response code="403">Not allowed</response>
         /// <response code="404">Not found</response>
@@ -201,7 +217,7 @@ namespace AdMicroservice.Controllers
                 //Samo onaj koji je postavio uslugu moze da je modifikuje
                 if (serviceUpdateDto.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed! User does not have permission!"));
                 }
 
                 var oldService = serviceRepository.GetServiceById(serviceId);
@@ -232,6 +248,7 @@ namespace AdMicroservice.Controllers
         /// <param name="accountId">ID of the user who sends the request</param>
         /// <param name="key">Authorization Key Value</param>
         /// <remarks>
+        /// Example of request \
         /// DELETE 'https://localhost:44349/api/services/'\
         ///  --header 'key: Bearer Bojana' \
         ///  --param  'serviceId = 2228e12e-9e5f-46cf-f59e-08d95c4b3916' -> change this for testing \
@@ -289,6 +306,7 @@ namespace AdMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         /// <remarks>
+        /// Example of request
         /// OPTIONS 'https://localhost:44349/api/services'
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status200OK)]

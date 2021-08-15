@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaMicroservice</name>
+    </assembly>
+    <members>
+        <member name="T:MediaMicroservice.Controllers.MediaController">
+            <summary>
+            Media controller with CRUD endpoints
+            </summary>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.GetMedia(System.String)">
+            <summary>
+            Returns list of all media
+            </summary>
+            <param name="name">First name of the user who added media</param>
+            <returns>List of media</returns>
+            <remarks> 
+            Example of request \
+            GET 'https://localhost:44388/api/medias' \
+            </remarks>
+            <response code="200">Success answer</response>
+            <response code="204">No content</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.GetMediaById(System.Guid)">
+            <summary>
+            Returns media with specific mediaId
+            </summary>
+            <param name="mediaId">Id of one media</param>
+            <remarks>        
+            Example of request \
+            GET 'https://localhost:44388/api/medias/' \
+                --param  'mediaId = 91cc2b07-a231-4fe7-bf3b-48821e35c904'
+            </remarks>
+            <response code="200">Success answer</response>
+            <response code="404">Not found</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.GetMediaByItemForSaleId(System.Guid,System.String)">
+            <summary>
+            Returns media by itemForSaleId
+            </summary>
+            <param name="itemForSaleId">Id of item for sale</param>
+            <param name="key">Authorization Key Value</param>
+            <returns></returns>
+            <remarks>        
+            Example of request \
+            GET 'https://localhost:44388/api/medias/itemForSaleId/' \
+            --header 'key: Bearer Bojana' \
+            --param 'itemForSaleId = 86f5ae7c-ef07-4339-9f46-c8f597560565'
+            </remarks>
+            <response code="200">Returns the media</response>
+            <response code="401">Unauthorized user</response>
+            <response code="404">Not found</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.CreateMedia(MediaMicroservice.Models.DTO.MediaCreationDto,System.Guid,System.String)">
+            <summary>
+            Create media 
+            </summary>
+            <param name="mediaCreationDto">Model of media to create</param>
+            <param name="accountId">Id of the user who sends the request</param>
+            <param name="key">Authorization Key Value</param>
+            <remarks>
+            Example of request \
+            POST 'https://localhost:44388/api/medias/' \
+             --header 'key: Bearer Bojana' \
+             --param 'accountId = 9888cf22-b353-4162-aedc-734ca2dc26a4' \
+            { \
+                "filePath": "https://img.gigatron.rs/img/products/large/image5f57467f62dd8.png", \
+                "itemForSaleId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
+                "accountId": "9888cf22-b353-4162-aedc-734ca2dc26a4" \
+            } \
+            </remarks>
+            <response code="201">Created media</response>
+            <response code="401">Unauthorized user</response>
+            <response code="403">Forbiden request</response>
+            <response code="500">There was an error on the server</response>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.UpdateMedia(MediaMicroservice.Models.DTO.MediaUpdateDto,System.Guid,System.Guid,System.String)">
+            <summary>
+            Update media
+            </summary>
+            <param name="mediaUpdateDto">Model of media for update</param>
+            <param name="mediaId">Media id</param>
+            <param name="accountId">Id of the user who sends the request</param>
+            <param name="key">Authorization Key Value</param>
+            <returns></returns>
+            <remarks>
+            Example of request \
+            PUT 'https://localhost:44388/api/medias/' \
+             --header 'key: Bearer Bojana' \
+             --param 'mediaId = 8298b502-1d16-42b8-b931-08d9600f0bdf' \
+             --param 'accountId = 9888cf22-b353-4162-aedc-734ca2dc26a4 \
+             42B70088-9DBD-4B19-8FC7-16414E94A8A6'
+            { \
+                "filePath": "https://www.winwin.rs/media/catalog/product/151/02/151026_5e79cb2344968.png", \
+                "itemForSaleId": "2d53fc22-eac4-43bb-8f55-d2b8495603cc", \
+                "accountId": "9888cf22-b353-4162-aedc-734ca2dc26a4" \
+            } \
+            </remarks>
+            <response code="200">Updated media</response>
+            <response code="401">Unauthorized user</response>
+            <response code="403">Forbiden request</response>
+            <response code="404">Not found</response>
+            <response code="500">Error on the server</response>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.DeleteMedia(System.Guid,System.Guid,System.String)">
+            <summary>
+            Delete media
+            </summary>
+            <param name="mediaId">Media Id</param>
+            <param name="accountId">Id of the user who sends the request</param>
+            <param name="key">Authorization Key Value</param>
+            <returns></returns>
+            <remarks>        
+            DELETE 'https://localhost:44388/api/medias/' \
+                --header 'key: Bearer Bojana' \
+                --param accountId = 'f2f88bcd-d0a2-4fe7-a23f-df97a59731cd'
+            </remarks>
+            <response code="204">Deleted media</response>
+            <response code="401" >Unauthorized user</response>
+            <response code="403">Forbiden request</response>
+            <response code="404">Not found media</response>
+            <response code="500">An error on the server</response>
+        </member>
+        <member name="M:MediaMicroservice.Controllers.MediaController.GetMediaOptions">
+            <summary>
+            Return implemented options for working with media
+            </summary>
+            <returns></returns>
+            <remarks>
+            Example of request \
+            OPTIONS 'https://localhost:44388/api/medias'
+            </remarks>
+        </member>
+        <member name="M:MediaMicroservice.DBContexts.MediaDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Filling the database with some data
+            </summary>
+        </member>
+        <member name="T:MediaMicroservice.Entities.Media">
+            <summary>
+            Entity class which represents multimedia content which are added to the items for sale
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Entities.Media.MediaId">
+            <summary>
+            An identifier for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Entities.Media.FilePath">
+            <summary>
+            The file path for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Entities.Media.ItemForSaleId">
+            <summary>
+            ItemForSaleId to which the media is added
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Entities.Media.AccountId">
+            <summary>
+            Id of the user who adds media for item
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaConfirmationDto.MediaId">
+            <summary>
+            An identifier for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaConfirmationDto.FilePath">
+            <summary>
+            The file path for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaConfirmationDto.ItemForSaleId">
+            <summary>
+            ItemForSaleId to which the media is added
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaConfirmationDto.AccountId">
+            <summary>
+            Id of the user who adds media for item
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaCreationDto.FilePath">
+            <summary>
+            The file path for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaCreationDto.ItemForSaleId">
+            <summary>
+            ItemForSaleId to which the media is added
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaCreationDto.AccountId">
+            <summary>
+            Id of the user who adds media for item
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaUpdateDto.MediaId">
+            <summary>
+            An identifier for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaUpdateDto.FilePath">
+            <summary>
+            The file path for the media
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaUpdateDto.ItemForSaleId">
+            <summary>
+            ItemForSaleId to which the media is added
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.DTO.MediaUpdateDto.AccountId">
+            <summary>
+            Id of the user who adds media for item
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.AccountDto.AccountId">
+            <summary>
+            An identifier for the user account
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.AccountDto.FirstName">
+            <summary>
+            First name of the user
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.AccountDto.LastName">
+            <summary>
+            Last name of the user
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.ItemForSaleDto.ItemForSaleId">
+            <summary>
+            An identifier for the item for sale
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.ItemForSaleDto.Name">
+            <summary>
+            Name of the item for sale
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.ItemForSaleDto.Description">
+            <summary>
+            Description of the item for sale
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.ItemForSaleDto.Price">
+            <summary>
+            Price of the item for sale
+            </summary>
+        </member>
+        <member name="P:MediaMicroservice.Models.Mock.ItemForSaleDto.AccountId">
+            <summary>
+            Id of the user who adds the item for sale to the wall
+            </summary>
+        </member>
+    </members>
+</doc>
