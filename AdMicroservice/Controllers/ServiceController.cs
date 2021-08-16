@@ -296,7 +296,7 @@ namespace AdMicroservice.Controllers
 
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Delete error"), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Delete error", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }

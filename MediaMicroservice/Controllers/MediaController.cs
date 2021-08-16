@@ -95,7 +95,7 @@ namespace MediaMicroservice.Controllers
                     //vracamo sve media
                     media = mediaRepository.GetMedias();
                 }
-                if (media.Count == 0 || media == null)
+                if (media.Count == 0)
                 {
                     return NoContent();
                 }
@@ -239,7 +239,7 @@ namespace MediaMicroservice.Controllers
                 //samo onaj ko je postavio proizvod moze da mu dodaje multimedijalni sadrzaj
                 if (mediaCreationDto.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("Not allowed!"));
+                    return StatusCode(StatusCodes.Status403Forbidden, "Not allowed!");
                 }
 
                 mediaRepository.CreateMedia(media);
@@ -252,7 +252,7 @@ namespace MediaMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Error while creating media", ex.Message), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error while creating media", null);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
@@ -312,14 +312,14 @@ namespace MediaMicroservice.Controllers
                 var oldMedia = mediaRepository.GetMediaById(mediaId);
                 if (oldMedia == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, String.Format("There is no media!"));
+                    return StatusCode(StatusCodes.Status404NotFound, "There is no media!");
                 }
                 Media newMedia = mapper.Map<Media>(mediaUpdateDto);
                 newMedia.ItemForSaleId= oldMedia.ItemForSaleId;
 
                 if (oldMedia.AccountId != accountId)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("User doesn't have permission to update media because he didn't create it"));
+                    return StatusCode(StatusCodes.Status403Forbidden, "User doesn't have permission to update media because he didn't create it");
                 }
 
                 var itemForSale = itemForSaleService.GetItemForSaleById<ItemForSaleDto>(HttpMethod.Get, oldMedia.ItemForSaleId).Result;
@@ -336,7 +336,7 @@ namespace MediaMicroservice.Controllers
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", String.Format("Error while updating media!", mediaId, ex.Message), null);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error while updating media!", null);
    
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -369,26 +369,26 @@ namespace MediaMicroservice.Controllers
         [HttpDelete("{mediaId}")]
         public IActionResult DeleteMedia(Guid mediaId, [FromHeader] Guid accountId, [FromHeader] string key)
         {
+            
+            //pristup metodi imaju samo autorizovani korisnici
+            if (!auth.AuthorizeUser(key))
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+            }
+
+            var media = mediaRepository.GetMediaById(mediaId);
+
+            if (media.AccountId != accountId)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, "User doesn't have permission to delete media because he didn't create it");
+            }
+
+            if (media == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, "There is no media!");
+            }
             try
             {
-                //pristup metodi imaju samo autorizovani korisnici
-                if (!auth.AuthorizeUser(key))
-                {
-                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
-                }
-
-                var media = mediaRepository.GetMediaById(mediaId);
-
-                if (media.AccountId != accountId)
-                {
-                    return StatusCode(StatusCodes.Status403Forbidden, String.Format("User doesn't have permission to delete media because he didn't create it"));
-                }
-
-                if (media == null)
-                {
-                    return StatusCode(StatusCodes.Status404NotFound, String.Format("There is no media!"));
-                }
-
                 mediaRepository.DeleteMedia(mediaId);
                 mediaRepository.SaveChanges();
 
