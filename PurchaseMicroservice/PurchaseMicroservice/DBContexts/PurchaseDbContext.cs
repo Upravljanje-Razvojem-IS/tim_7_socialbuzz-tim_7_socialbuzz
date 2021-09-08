@@ -8,23 +8,40 @@ using PurchaseMicroservice.Entities;
 
 namespace PurchaseMicroservice.DBContexts
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PurchaseDbContext : DbContext
     {
 
         private readonly IConfiguration configuration;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="configuration"></param>
 
         public PurchaseDbContext(DbContextOptions options, IConfiguration configuration) : base(options)
         {
             this.configuration = configuration;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public DbSet<Purchase> Purchases { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contextOptionsBuilder"></param>
 
         protected override void OnConfiguring (DbContextOptionsBuilder contextOptionsBuilder)
         {
             contextOptionsBuilder.UseSqlServer(configuration.GetConnectionString("PurchaseMicroserviceDb"));
         }
-
+        /// <summary>
+        /// adding data in db
+        /// </summary>
+        /// <param name="modelBuilder"></param>
       protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Purchase>().HasData(

@@ -1,0 +1,693 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PurchaseMicroservice</name>
+    </assembly>
+    <members>
+        <member name="T:PurchaseMicroservice.Controllers.PurchaseController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.#ctor(PurchaseMicroservice.Data.Purchases.IPurchaseRepository,PurchaseMicroservice.Data.ItemForSaleMock.IItemForSaleMockRepository,PurchaseMicroservice.Data.AccountMock.IAccountMockRepository,PurchaseMicroservice.Data.DeliveryMock.IDeliveryMockRepository,PurchaseMicroservice.Logger.ILoggerMockRepository,Microsoft.AspNetCore.Http.IHttpContextAccessor,AutoMapper.IMapper,Microsoft.AspNetCore.Routing.LinkGenerator,PurchaseMicroservice.Helpers.IAuth)">
+            <summary>
+            
+            </summary>
+            <param name="purchaseRepository"></param>
+            <param name="itemForSaleMockRepository"></param>
+            <param name="accountMockRepository"></param>
+            <param name="deliveryMockRepository"></param>
+            <param name="logger"></param>
+            <param name="contextAccessor"></param>
+            <param name="mapper"></param>
+            <param name="linkGenerator"></param>
+            <param name="auth"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.GetPurchase(System.String)">
+            <summary>
+            Returns list of all purchases
+            </summary>
+            <param name="name">First name of the user who added purchase</param>
+            <returns>List of media</returns>
+            <response code="200">Success answer</response>
+            <response code="204">No content</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.AccountMock.AccountMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Data.AccountMock.AccountMockRepository.Accounts">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.AccountMockRepository.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.AccountMockRepository.GetAccountByFirstName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="firstName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.AccountMockRepository.GetAccountByID(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.AccountMockRepository.GetAccountByLasttName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="lastName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.AccountMock.IAccountMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.IAccountMockRepository.GetAccountByID(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.IAccountMockRepository.GetAccountByFirstName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="firstName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.AccountMock.IAccountMockRepository.GetAccountByLasttName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="lastName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.DeliveryMock.DeliveryMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Data.DeliveryMock.DeliveryMockRepository.Deliveries">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.DeliveryMock.DeliveryMockRepository.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.DeliveryMock.DeliveryMockRepository.GetDeliveryByID(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.DeliveryMock.DeliveryMockRepository.GetDeliveryByAddress(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="address"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.DeliveryMock.IDeliveryMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.DeliveryMock.IDeliveryMockRepository.GetDeliveryByID(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.DeliveryMock.IDeliveryMockRepository.GetDeliveryByAddress(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="address"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.ItemForSaleMock.IItemForSaleMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.ItemForSaleMock.IItemForSaleMockRepository.GetItemForSaleByID(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.ItemForSaleMock.IItemForSaleMockRepository.GetItemForSaleByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.ItemForSaleMock.ItemForSaleMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Data.ItemForSaleMock.ItemForSaleMockRepository.Items">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.ItemForSaleMock.ItemForSaleMockRepository.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.ItemForSaleMock.ItemForSaleMockRepository.GetItemForSaleByID(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.ItemForSaleMock.ItemForSaleMockRepository.GetItemForSaleByName(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.Purchases.IPurchaseRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetAllPurchase">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetPurchaseById(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="purchaseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.CreatePurchase(PurchaseMicroservice.Entities.Purchase)">
+            <summary>
+            
+            </summary>
+            <param name="purchase"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.UpdatePurchase(PurchaseMicroservice.Entities.Purchase,PurchaseMicroservice.Entities.Purchase)">
+            <summary>
+            
+            </summary>
+            <param name="oldPurchase"></param>
+            <param name="newPurchase"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.DeletePurchase(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="purchaseId"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.SaveChanges">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetPurchaseByDate(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetPurchaseByAccountId(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetPurchaseByItemForSaleId(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Data.Purchases.PurchaseRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.#ctor(PurchaseMicroservice.DBContexts.PurchaseDbContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.CreatePurchase(PurchaseMicroservice.Entities.Purchase)">
+            <summary>
+            
+            </summary>
+            <param name="purchase"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.DeletePurchase(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="purchaseId"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.GetAllPurchase">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.GetPurchaseByAccountId(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.GetPurchaseByDate(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.GetPurchaseById(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="purchaseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.GetPurchaseByItemForSaleId(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.SaveChanges">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PurchaseMicroservice.Data.Purchases.PurchaseRepository.UpdatePurchase(PurchaseMicroservice.Entities.Purchase,PurchaseMicroservice.Entities.Purchase)">
+            <summary>
+            
+            </summary>
+            <param name="oldPurchase"></param>
+            <param name="newPurchase"></param>
+        </member>
+        <member name="T:PurchaseMicroservice.DBContexts.PurchaseDbContext">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.DBContexts.PurchaseDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:PurchaseMicroservice.DBContexts.PurchaseDbContext.Purchases">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.DBContexts.PurchaseDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="contextOptionsBuilder"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.DBContexts.PurchaseDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            adding data in db
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:PurchaseMicroservice.Entities.Purchase">
+            <summary>
+            Entity class which represents purchase
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Entities.Purchase.PurchaseId">
+            <summary>
+            An identifier for the purchase
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Entities.Purchase.Date">
+            <summary>
+            date and time of purchase
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Entities.Purchase.Description">
+            <summary>
+            Short text describing the purchase
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Entities.Purchase.AccountId">
+            <summary>
+            Id of the user who made the purchase
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Entities.Purchase.DeliveryId">
+            <summary>
+            Id of delivery
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Entities.Purchase.ItemForSaleId">
+            <summary>
+            Id of the sold item
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Helpers.Auth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Helpers.Auth.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Helpers.Auth.AuthorizeUser(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Helpers.IAuth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Helpers.IAuth.AuthorizeUser(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Logger.ILoggerMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Logger.ILoggerMockRepository.Log(Microsoft.Extensions.Logging.LogLevel,System.String,System.String,System.String,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="logLevel"></param>
+            <param name="requestId"></param>
+            <param name="previousRequestId"></param>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="T:PurchaseMicroservice.Logger.LoggerMockRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Logger.LoggerMockRepository.Log(Microsoft.Extensions.Logging.LogLevel,System.String,System.String,System.String,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="logLevel"></param>
+            <param name="requestId"></param>
+            <param name="previousRequestId"></param>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="T:PurchaseMicroservice.Migrations.initial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Migrations.initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Migrations.initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Migrations.initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:PurchaseMicroservice.Models.DTO.PurchaseConfirmationDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseConfirmationDTO.PurchaseId">
+            <summary>
+            An identifier for the purchase
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseConfirmationDTO.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseConfirmationDTO.AccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseConfirmationDTO.DeliveryId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseConfirmationDTO.ItemForSaleId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Models.DTO.PurchaseCreationDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseCreationDTO.Description">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseCreationDTO.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseCreationDTO.AccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseCreationDTO.DeliveryId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseCreationDTO.ItemForSaleId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.PurchaseId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.Date">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.Description">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.AccountId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.DeliveryId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.ItemForSaleId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Models.Mock.AccountDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.AccountDTO.AccountId">
+            <summary>
+            An identifier for the user account
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.AccountDTO.FirstName">
+            <summary>
+            First name of the user
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.AccountDTO.LastName">
+            <summary>
+            Last name of the user
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.AccountDTO.Balance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Models.Mock.DeliveryDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.DeliveryDTO.DeliveryId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.DeliveryDTO.Address">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.DeliveryDTO.Price">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Models.Mock.ItemForSaleDTO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.ItemForSaleDTO.ItemForSaleId">
+            <summary>
+            An identifier for the item for sale
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.ItemForSaleDTO.Name">
+            <summary>
+            Name of the item for sale
+            </summary>
+        </member>
+        <member name="P:PurchaseMicroservice.Models.Mock.ItemForSaleDTO.Price">
+            <summary>
+            Price of the item for sale
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Profiles.PurchaseProfile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Profiles.PurchaseProfile.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:PurchaseMicroservice.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PurchaseMicroservice.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:PurchaseMicroservice.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:PurchaseMicroservice.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:PurchaseMicroservice.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

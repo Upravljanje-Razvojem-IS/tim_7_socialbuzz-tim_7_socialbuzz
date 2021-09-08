@@ -13,6 +13,10 @@ namespace PurchaseMicroservice.Migrations
     [Migration("20210906204342_initial")]
     partial class initial
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

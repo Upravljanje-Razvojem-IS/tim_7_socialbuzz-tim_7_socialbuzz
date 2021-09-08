@@ -5,10 +5,22 @@ using System.Threading.Tasks;
 
 namespace PurchaseMicroservice.Models.Mock
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DeliveryDTO
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Guid DeliveryId { get; set; }
-        public String Adress { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Address { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public String Price { get; set; }
     }
 }

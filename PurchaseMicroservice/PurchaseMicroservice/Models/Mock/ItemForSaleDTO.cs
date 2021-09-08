@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace PurchaseMicroservice.Models.Mock
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ItemForSaleDTO
     {
         /// <summary>

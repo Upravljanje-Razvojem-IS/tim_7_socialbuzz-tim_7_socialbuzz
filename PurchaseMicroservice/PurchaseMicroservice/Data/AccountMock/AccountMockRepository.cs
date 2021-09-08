@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace PurchaseMicroservice.Data.AccountMock
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AccountMockRepository : IAccountMockRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static List<AccountDTO> Accounts { get; set; } = new List<AccountDTO>();
-
+        /// <summary>
+        /// 
+        /// </summary>
         public AccountMockRepository()
         {
             FillData();
@@ -39,16 +47,29 @@ namespace PurchaseMicroservice.Data.AccountMock
                 }
             });
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
         public AccountDTO GetAccountByFirstName(string firstName)
         {
             return Accounts.FirstOrDefault(e => e.FirstName == firstName);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public AccountDTO GetAccountByID(Guid id)
         {
             return Accounts.FirstOrDefault(e => e.AccountId == id);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
         public AccountDTO GetAccountByLasttName(string lastName)
         {
             return Accounts.FirstOrDefault(e => e.LastName == lastName);

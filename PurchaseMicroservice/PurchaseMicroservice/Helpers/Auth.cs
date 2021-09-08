@@ -6,16 +6,27 @@ using System.Threading.Tasks;
 
 namespace PurchaseMicroservice.Helpers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Auth : IAuth
     {
 
         private readonly IConfiguration configuration;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
 
         public Auth(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public bool AuthorizeUser(string key)
         {
             if (!key.StartsWith("Bearer"))

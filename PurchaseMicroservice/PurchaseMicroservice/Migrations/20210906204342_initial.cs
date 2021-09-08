@@ -3,8 +3,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PurchaseMicroservice.Migrations
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class initial : Migration
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -38,7 +45,10 @@ namespace PurchaseMicroservice.Migrations
                 columns: new[] { "PurchaseId", "AccountId", "Date", "DeliveryId", "Description", "ItemForSaleId" },
                 values: new object[] { new Guid("fc953708-ce8b-4925-bc2e-a1ef4b8fc932"), new Guid("bcac549f-188c-415b-b64f-6ac5545a3c17"), "06/07/2021", new Guid("f3c1d7f0-f973-4e11-9d99-35bf23f88304"), "Cash on delivery", new Guid("fe7a9096-80f4-4b7f-a8c3-0029be9959b7") });
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
