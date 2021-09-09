@@ -87,6 +87,8 @@ namespace PurchaseMicroservice.Data.Purchases
         {
             return context.Purchases.Where(e => (e.ItemForSaleId == id)).ToList();
         }
+
+
         /// <summary>
         /// 
         /// </summary>

@@ -44,7 +44,7 @@ namespace PurchaseMicroservice.Data.Purchases
         /// <returns></returns>
         bool SaveChanges();
         /// <summary>
-        /// 
+        /// get all purchases by date
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace PurchaseMicroservice.Data.Purchases
         /// <returns></returns>
         List<Purchase> GetPurchaseByAccountId(Guid id);
         /// <summary>
-        /// 
+        /// get purchase by item for sale id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

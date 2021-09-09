@@ -27,10 +27,67 @@
             <summary>
             Returns list of all purchases
             </summary>
-            <param name="name">First name of the user who added purchase</param>
+            <param name="name">First name of the user who done purchase</param>
             <returns>List of media</returns>
             <response code="200">Success answer</response>
             <response code="204">No content</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.GetPurchaseById(System.Guid)">
+            <summary>
+            Returns purchase by ID
+            </summary>
+            <param name="purchaseId"></param>
+            <response code="200">Success answer</response>
+            <response code="404">Not found</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.PostPurchase(PurchaseMicroservice.Models.DTO.PurchaseCreationDTO,System.String)">
+            <summary>
+            Create new purchase 
+            </summary>
+            <param name="purchaseCreationDTO">Model for creating purchase</param>
+            <param name="key">Authorization Key Value</param>
+            <remarks>        
+            KEY: Bearer Sanja
+            </remarks>
+            <response code="201">Created purchase</response>
+            <response code="401">Unauthorized user</response>
+            <response code="403">Forbiden request</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.DeletePurchase(System.Guid,System.String)">
+            <summary>
+            Delete purchase
+            </summary>
+            <param name="purchaseId">Purchase Id</param>
+            <param name="key">Authorization Key Value</param>
+            <returns></returns>
+            <remarks>      
+            key: Bearer Sanja
+            </remarks>
+            <response code="204">Deleted purchase</response>
+            <response code="401">Unauthorized user</response>
+            <response code="403">Forbiden request</response>
+            <response code="404">Not found purchase</response>
+            <response code="500">An error on the server</response>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.GetPurchaseByItemForSaleId(System.Guid,System.String)">
+            <summary>
+            Returns purchase by itemForSaleId
+            </summary>
+            <param name="itemForSaleId">Id of item for sale</param>
+            <param name="key">Authorization Key Value</param>
+            <returns></returns>
+            <remarks>        
+            EXAMPLE: \
+            GET 'https://localhost:44388/api/purchases/itemForSaleId/' \
+            KEY: Bearer Sanja \
+            itemForSaleId = 915510b2-74fb-44b7-b265-730ac0079a0d
+            </remarks>
+            <response code="200">Returns the media</response>
+            <response code="401">Unauthorized user</response>
+            <response code="404">Not found</response>
             <response code="500">Server error</response>
         </member>
         <member name="T:PurchaseMicroservice.Data.AccountMock.AccountMockRepository">
@@ -236,7 +293,7 @@
         </member>
         <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetPurchaseByDate(System.String)">
             <summary>
-            
+            get all purchases by date
             </summary>
             <param name="date"></param>
             <returns></returns>
@@ -250,7 +307,7 @@
         </member>
         <member name="M:PurchaseMicroservice.Data.Purchases.IPurchaseRepository.GetPurchaseByItemForSaleId(System.Guid)">
             <summary>
-            
+            get purchase by item for sale id
             </summary>
             <param name="id"></param>
             <returns></returns>
