@@ -24,9 +24,7 @@ namespace PurchaseMicroservice.Models.Mock
         /// Last name of the user
         /// </summary>
         public String LastName { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public Double Balance { get; set; }
+
+
     }
 }

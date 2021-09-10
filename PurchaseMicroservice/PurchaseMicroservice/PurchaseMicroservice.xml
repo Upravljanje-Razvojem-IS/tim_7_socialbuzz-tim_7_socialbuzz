@@ -38,7 +38,28 @@
             Returns purchase by ID
             </summary>
             <param name="purchaseId"></param>
+            <remarks>     
+            EXAMPLE \
+            purchaseId: 36e745c1-8615-4244-bf16-492b6493602f
+            </remarks>
             <response code="200">Success answer</response>
+            <response code="404">Not found</response>
+            <response code="500">Server error</response>
+        </member>
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.GetPurchaseByItemForSaleId(System.Guid,System.String)">
+            <summary>
+            Returns purchase by itemForSaleId
+            </summary>
+            <param name="itemForSaleId">Id of item for sale</param>
+            <param name="key">Authorization Key Value</param>
+            <returns></returns>
+            <remarks>        
+            EXAMPLE: \
+            KEY: Bearer Sanja \
+            itemForSaleId = 915510b2-74fb-44b7-b265-730ac0079a0d
+            </remarks>
+            <response code="200">Returns the media</response>
+            <response code="401">Unauthorized user</response>
             <response code="404">Not found</response>
             <response code="500">Server error</response>
         </member>
@@ -72,21 +93,20 @@
             <response code="404">Not found purchase</response>
             <response code="500">An error on the server</response>
         </member>
-        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.GetPurchaseByItemForSaleId(System.Guid,System.String)">
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.UpdatePurchase(PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO,System.Guid,System.String)">
             <summary>
-            Returns purchase by itemForSaleId
+            Update purchase
             </summary>
-            <param name="itemForSaleId">Id of item for sale</param>
+            <param name="purchaseUpdateDTO">Model of purchase for update</param>
+            <param name="purchaseId">Purchase id</param>
             <param name="key">Authorization Key Value</param>
-            <returns></returns>
             <remarks>        
-            EXAMPLE: \
-            GET 'https://localhost:44388/api/purchases/itemForSaleId/' \
-            KEY: Bearer Sanja \
-            itemForSaleId = 915510b2-74fb-44b7-b265-730ac0079a0d
+            KEY: Bearer Sanja
             </remarks>
-            <response code="200">Returns the media</response>
+            <returns></returns>
+            <response code="200">Updated purchase</response>
             <response code="401">Unauthorized user</response>
+            <response code="403">Forbiden request</response>
             <response code="404">Not found</response>
             <response code="500">Server error</response>
         </member>
@@ -609,21 +629,6 @@
             
             </summary>
         </member>
-        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.AccountId">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.DeliveryId">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:PurchaseMicroservice.Models.DTO.PurchaseUpdateDTO.ItemForSaleId">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="T:PurchaseMicroservice.Models.Mock.AccountDTO">
             <summary>
             
@@ -642,11 +647,6 @@
         <member name="P:PurchaseMicroservice.Models.Mock.AccountDTO.LastName">
             <summary>
             Last name of the user
-            </summary>
-        </member>
-        <member name="P:PurchaseMicroservice.Models.Mock.AccountDTO.Balance">
-            <summary>
-            
             </summary>
         </member>
         <member name="T:PurchaseMicroservice.Models.Mock.DeliveryDTO">

@@ -45,7 +45,7 @@ namespace PurchaseMicroservice.Data.DeliveryMock
                 {
                     DeliveryId = Guid.Parse("f3c1d7f0-f973-4e11-9d99-35bf23f88304"),
                     Address = "30 Commercial Road, Fratton",
-                    Price = "4$"
+                    Price = "4"
                 }
             });
         }

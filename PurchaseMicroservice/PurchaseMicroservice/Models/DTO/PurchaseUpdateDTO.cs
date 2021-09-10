@@ -28,14 +28,6 @@ namespace PurchaseMicroservice.Models.DTO
         /// <summary>
         /// 
         /// </summary>
-        public Guid AccountId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public Guid DeliveryId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public Guid ItemForSaleId { get; set; }
+
     }
 }

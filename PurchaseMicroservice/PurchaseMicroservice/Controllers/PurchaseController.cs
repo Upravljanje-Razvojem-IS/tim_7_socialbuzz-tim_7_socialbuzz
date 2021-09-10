@@ -123,6 +123,10 @@ namespace PurchaseMicroservice.Controllers
         /// Returns purchase by ID
         /// </summary>
         /// <param name="purchaseId"></param>
+        /// <remarks>     
+        /// EXAMPLE \
+        /// purchaseId: 36e745c1-8615-4244-bf16-492b6493602f
+        /// </remarks>
         /// <response code="200">Success answer</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
@@ -141,6 +145,51 @@ namespace PurchaseMicroservice.Controllers
                     return StatusCode(StatusCodes.Status404NotFound, "Not found");
                 }
                 logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get purchase by id", null);
+                return Ok(purchase);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+
+            }
+        }
+
+        /// <summary>
+        /// Returns purchase by itemForSaleId
+        /// </summary>
+        /// <param name="itemForSaleId">Id of item for sale</param>
+        /// <param name="key">Authorization Key Value</param>
+        /// <returns></returns>
+        /// <remarks>        
+        /// EXAMPLE: \
+        /// KEY: Bearer Sanja \
+        /// itemForSaleId = 915510b2-74fb-44b7-b265-730ac0079a0d
+        /// </remarks>
+        /// <response code="200">Returns the media</response>
+        /// <response code="401">Unauthorized user</response>
+        /// <response code="404">Not found</response>
+        /// <response code="500">Server error</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("itemForSaleId/{itemForSaleId}")]
+        public ActionResult<List<Purchase>> GetPurchaseByItemForSaleId(Guid itemForSaleId, [FromHeader] string key)
+        {
+            try
+            {
+                //just autorized users can access
+                if (!auth.AuthorizeUser(key))
+                {
+                    return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
+                }
+
+                var purchase = purchaseRepository.GetPurchaseByItemForSaleId(itemForSaleId);
+                if (purchase == null || purchase.Count == 0)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, "There is no purchases!");
+                }
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get purchases by itemForSaleId", null);
                 return Ok(purchase);
             }
             catch (Exception ex)
@@ -179,7 +228,9 @@ namespace PurchaseMicroservice.Controllers
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
                 }
 
+
                 Purchase purchase = mapper.Map<Purchase>(purchaseCreationDTO);
+
 
                 purchaseRepository.CreatePurchase(purchase);
                 purchaseRepository.SaveChanges();
@@ -250,51 +301,60 @@ namespace PurchaseMicroservice.Controllers
             }
         }
 
+
         /// <summary>
-        /// Returns purchase by itemForSaleId
+        /// Update purchase
         /// </summary>
-        /// <param name="itemForSaleId">Id of item for sale</param>
+        /// <param name="purchaseUpdateDTO">Model of purchase for update</param>
+        /// <param name="purchaseId">Purchase id</param>
         /// <param name="key">Authorization Key Value</param>
-        /// <returns></returns>
-        /// <remarks>        
-        /// EXAMPLE: \
-        /// GET 'https://localhost:44388/api/purchases/itemForSaleId/' \
-        /// KEY: Bearer Sanja \
-        /// itemForSaleId = 915510b2-74fb-44b7-b265-730ac0079a0d
+         /// <remarks>        
+        /// KEY: Bearer Sanja
         /// </remarks>
-        /// <response code="200">Returns the media</response>
+        /// <returns></returns>
+        /// <response code="200">Updated purchase</response>
         /// <response code="401">Unauthorized user</response>
+        /// <response code="403">Forbiden request</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Server error</response>
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpGet("itemForSaleId/{itemForSaleId}")]
-        public ActionResult<List<Purchase>> GetPurchaseByItemForSaleId(Guid itemForSaleId, [FromHeader] string key)
+        [HttpPut("{purchaseId}")]
+        public ActionResult<Purchase> UpdatePurchase([FromBody] PurchaseUpdateDTO purchaseUpdateDTO, Guid purchaseId, [FromHeader] string key)
         {
             try
             {
-                //just autorized users can access
+                //pristup metodi imaju samo autorizovani korisnici
                 if (!auth.AuthorizeUser(key))
                 {
                     return StatusCode(StatusCodes.Status401Unauthorized, "Authorization failed!");
                 }
 
-                var purchase = purchaseRepository.GetPurchaseByItemForSaleId(itemForSaleId);
-                if (purchase == null || purchase.Count == 0)
+                var oldPurchase = purchaseRepository.GetPurchaseById(purchaseId);
+                if (oldPurchase == null)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound, "There is no purchases!");
+                    return StatusCode(StatusCodes.Status404NotFound, "There is no purchase with that ID!");
                 }
-                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Get purchases by itemForSaleId", null);
-                return Ok(purchase);
+                Purchase newPurchase = mapper.Map<Purchase>(purchaseUpdateDTO);
+                //newPurchase.ItemForSaleId = oldPurchase.ItemForSaleId;
+
+                purchaseRepository.UpdatePurchase(oldPurchase, newPurchase);
+                purchaseRepository.SaveChanges();
+                logger.Log(LogLevel.Information, contextAccessor.HttpContext.TraceIdentifier, "", "Purchase updated.", null);
+
+                return Ok(oldPurchase);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                logger.Log(LogLevel.Error, contextAccessor.HttpContext.TraceIdentifier, "", "Error while updating purchase!", null);
 
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
 
 
     }

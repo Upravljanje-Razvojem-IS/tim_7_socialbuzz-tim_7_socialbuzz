@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "01098ccc-a004-4ad7-bb31-b113f13655c3",
+		"name": "URIS_PurchaseMicroservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetPurchases",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44319/api/purchases",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44319",
+					"path": [
+						"api",
+						"purchases"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetPurchases",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44319/api/purchases",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44319",
+							"path": [
+								"api",
+								"purchases"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 10 Sep 2021 12:53:15 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"purchaseId\": \"192a518c-00a7-4d22-d65c-08d97452ac38\",\n        \"date\": \"test123\",\n        \"description\": \"test123\",\n        \"accountId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"deliveryId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"itemForSaleId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n    },\n    {\n        \"purchaseId\": \"47fe7416-238e-4a77-d65d-08d97452ac38\",\n        \"date\": \"ssss\",\n        \"description\": \"Sanja\",\n        \"accountId\": \"8402442c-1dfe-42d0-8c3e-e7b363ebbee0\",\n        \"deliveryId\": \"a61af5c0-af6f-4403-b609-cb9f973654ee\",\n        \"itemForSaleId\": \"4849de1d-8fd8-43fc-9a77-2393a8564b80\"\n    },\n    {\n        \"purchaseId\": \"36e745c1-8615-4244-bf16-492b6493602f\",\n        \"date\": \"05/29/2021\",\n        \"description\": \"Cash on delivery\",\n        \"accountId\": \"7e58590d-3968-4730-9c62-1ce5ae071478\",\n        \"deliveryId\": \"e04ce688-4fe1-43a1-838e-e3aedbe083b8\",\n        \"itemForSaleId\": \"915510b2-74fb-44b7-b265-730ac0079a0d\"\n    },\n    {\n        \"purchaseId\": \"ac770b34-0a5f-46f4-b5d0-7c4a7ce3a036\",\n        \"date\": \"06/11/2021\",\n        \"description\": \"Cash on delivery\",\n        \"accountId\": \"1265bcd7-6e5a-491b-b802-acf4c4646d78\",\n        \"deliveryId\": \"bea55668-1ab8-4aa7-aca3-9b184f2c80d1\",\n        \"itemForSaleId\": \"972379ca-7d10-4741-9b61-90414c77f32d\"\n    },\n    {\n        \"purchaseId\": \"fc953708-ce8b-4925-bc2e-a1ef4b8fc932\",\n        \"date\": \"06/07/2021\",\n        \"description\": \"Cash on delivery\",\n        \"accountId\": \"bcac549f-188c-415b-b64f-6ac5545a3c17\",\n        \"deliveryId\": \"f3c1d7f0-f973-4e11-9d99-35bf23f88304\",\n        \"itemForSaleId\": \"fe7a9096-80f4-4b7f-a8c3-0029be9959b7\"\n    }\n]"
+				},
+				{
+					"name": "GetPurchases",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44319/api/purchases",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44319",
+							"path": [
+								"api",
+								"purchases"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 Sep 2021 13:40:22 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"purchaseId\": \"36e745c1-8615-4244-bf16-492b6493602f\",\n        \"date\": \"05/29/2021\",\n        \"description\": \"Cash on delivery\",\n        \"accountId\": \"7e58590d-3968-4730-9c62-1ce5ae071478\",\n        \"deliveryId\": \"e04ce688-4fe1-43a1-838e-e3aedbe083b8\",\n        \"itemForSaleId\": \"915510b2-74fb-44b7-b265-730ac0079a0d\"\n    },\n    {\n        \"purchaseId\": \"ac770b34-0a5f-46f4-b5d0-7c4a7ce3a036\",\n        \"date\": \"06/11/2021\",\n        \"description\": \"Cash on delivery\",\n        \"accountId\": \"1265bcd7-6e5a-491b-b802-acf4c4646d78\",\n        \"deliveryId\": \"bea55668-1ab8-4aa7-aca3-9b184f2c80d1\",\n        \"itemForSaleId\": \"972379ca-7d10-4741-9b61-90414c77f32d\"\n    },\n    {\n        \"purchaseId\": \"fc953708-ce8b-4925-bc2e-a1ef4b8fc932\",\n        \"date\": \"06/07/2021\",\n        \"description\": \"Cash on delivery\",\n        \"accountId\": \"bcac549f-188c-415b-b64f-6ac5545a3c17\",\n        \"deliveryId\": \"f3c1d7f0-f973-4e11-9d99-35bf23f88304\",\n        \"itemForSaleId\": \"fe7a9096-80f4-4b7f-a8c3-0029be9959b7\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetPurchaseByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44319/api/purchases/36e745c1-8615-4244-bf16-492b6493602f",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44319",
+					"path": [
+						"api",
+						"purchases",
+						"36e745c1-8615-4244-bf16-492b6493602f"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetPurchaseByID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44319/api/purchases/36e745c1-8615-4244-bf16-492b6493602f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44319",
+							"path": [
+								"api",
+								"purchases",
+								"36e745c1-8615-4244-bf16-492b6493602f"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 Sep 2021 13:49:27 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "264"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"purchaseId\": \"36e745c1-8615-4244-bf16-492b6493602f\",\n    \"date\": \"05/29/2021\",\n    \"description\": \"Cash on delivery\",\n    \"accountId\": \"7e58590d-3968-4730-9c62-1ce5ae071478\",\n    \"deliveryId\": \"e04ce688-4fe1-43a1-838e-e3aedbe083b8\",\n    \"itemForSaleId\": \"915510b2-74fb-44b7-b265-730ac0079a0d\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetPurchaseByItemForSaleID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Sanja",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44319/api/purchases/itemForSaleId/915510b2-74fb-44b7-b265-730ac0079a0d",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44319",
+					"path": [
+						"api",
+						"purchases",
+						"itemForSaleId",
+						"915510b2-74fb-44b7-b265-730ac0079a0d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPurchase",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Sanja",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"testtt\",\r\n  \"date\": \"testtt\",\r\n  \"accountId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"deliveryId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"itemForSaleId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44319/api/purchases/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44319",
+					"path": [
+						"api",
+						"purchases",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePurchase",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Sanja",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"purchaseId\": \"63b7fbcf-c552-4a66-2ac4-08d9745c07a0\",\r\n  \"date\": \"testtt111\",\r\n  \"description\": \"testtt111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44319/api/purchases/63b7fbcf-c552-4a66-2ac4-08d9745c07a0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44319",
+					"path": [
+						"api",
+						"purchases",
+						"63b7fbcf-c552-4a66-2ac4-08d9745c07a0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePurchase",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "key",
+						"value": "Bearer Sanja",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:44319/api/purchases/192a518c-00a7-4d22-d65c-08d97452ac38",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44319",
+					"path": [
+						"api",
+						"purchases",
+						"192a518c-00a7-4d22-d65c-08d97452ac38"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

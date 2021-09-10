@@ -106,6 +106,7 @@ namespace PurchaseMicroservice.Data.Purchases
         public void UpdatePurchase(Purchase oldPurchase, Purchase newPurchase)
         {
             oldPurchase.Description = newPurchase.Description;
+            oldPurchase.Date = newPurchase.Date;
         }
     }
 }
