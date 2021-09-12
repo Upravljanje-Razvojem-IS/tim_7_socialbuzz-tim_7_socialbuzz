@@ -9,14 +9,12 @@
             
             </summary>
         </member>
-        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.#ctor(PurchaseMicroservice.Data.Purchases.IPurchaseRepository,PurchaseMicroservice.Data.ItemForSaleMock.IItemForSaleMockRepository,PurchaseMicroservice.Data.AccountMock.IAccountMockRepository,PurchaseMicroservice.Data.DeliveryMock.IDeliveryMockRepository,PurchaseMicroservice.Logger.ILoggerMockRepository,Microsoft.AspNetCore.Http.IHttpContextAccessor,AutoMapper.IMapper,Microsoft.AspNetCore.Routing.LinkGenerator,PurchaseMicroservice.Helpers.IAuth)">
+        <member name="M:PurchaseMicroservice.Controllers.PurchaseController.#ctor(PurchaseMicroservice.Data.Purchases.IPurchaseRepository,PurchaseMicroservice.Data.AccountMock.IAccountMockRepository,PurchaseMicroservice.Logger.ILoggerMockRepository,Microsoft.AspNetCore.Http.IHttpContextAccessor,AutoMapper.IMapper,Microsoft.AspNetCore.Routing.LinkGenerator,PurchaseMicroservice.Helpers.IAuth)">
             <summary>
             
             </summary>
             <param name="purchaseRepository"></param>
-            <param name="itemForSaleMockRepository"></param>
             <param name="accountMockRepository"></param>
-            <param name="deliveryMockRepository"></param>
             <param name="logger"></param>
             <param name="contextAccessor"></param>
             <param name="mapper"></param>

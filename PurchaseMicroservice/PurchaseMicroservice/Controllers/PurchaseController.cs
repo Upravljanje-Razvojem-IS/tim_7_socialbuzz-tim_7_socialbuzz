@@ -30,9 +30,7 @@ namespace PurchaseMicroservice.Controllers
     public class PurchaseController : ControllerBase
     {
         private readonly IPurchaseRepository purchaseRepository;
-        private readonly IItemForSaleMockRepository itemForSaleMockRepository;
         private readonly IAccountMockRepository accountMockRepository;
-        private readonly IDeliveryMockRepository deliveryMockRepository;
         private readonly ILoggerMockRepository logger;
         private readonly IHttpContextAccessor contextAccessor;
 
@@ -45,22 +43,18 @@ namespace PurchaseMicroservice.Controllers
         /// 
         /// </summary>
         /// <param name="purchaseRepository"></param>
-        /// <param name="itemForSaleMockRepository"></param>
         /// <param name="accountMockRepository"></param>
-        /// <param name="deliveryMockRepository"></param>
         /// <param name="logger"></param>
         /// <param name="contextAccessor"></param>
         /// <param name="mapper"></param>
         /// <param name="linkGenerator"></param>
         /// <param name="auth"></param>
-        public PurchaseController(IPurchaseRepository purchaseRepository, IItemForSaleMockRepository itemForSaleMockRepository,
-           IAccountMockRepository accountMockRepository, IDeliveryMockRepository deliveryMockRepository, ILoggerMockRepository logger, IHttpContextAccessor contextAccessor,
+        public PurchaseController(IPurchaseRepository purchaseRepository,
+           IAccountMockRepository accountMockRepository, ILoggerMockRepository logger, IHttpContextAccessor contextAccessor,
            IMapper mapper, LinkGenerator linkGenerator, IAuth auth)
         {
             this.purchaseRepository = purchaseRepository;
-            this.itemForSaleMockRepository = itemForSaleMockRepository;
             this.accountMockRepository = accountMockRepository;
-            this.deliveryMockRepository = deliveryMockRepository;
             this.logger = logger;
             this.contextAccessor = contextAccessor;
             this.mapper = mapper;
@@ -339,7 +333,6 @@ namespace PurchaseMicroservice.Controllers
                     return StatusCode(StatusCodes.Status404NotFound, "There is no purchase with that ID!");
                 }
                 Purchase newPurchase = mapper.Map<Purchase>(purchaseUpdateDTO);
-                //newPurchase.ItemForSaleId = oldPurchase.ItemForSaleId;
 
                 purchaseRepository.UpdatePurchase(oldPurchase, newPurchase);
                 purchaseRepository.SaveChanges();

@@ -69,3 +69,4 @@ D:\Faks\CETVRTA GODINA\URIS PROJEKAT\projekat\tim_7_socialbuzz-tim_7_socialbuzz\
 D:\Faks\CETVRTA GODINA\URIS PROJEKAT\projekat\tim_7_socialbuzz-tim_7_socialbuzz\PurchaseMicroservice\PurchaseMicroservice\obj\Debug\netcoreapp3.1\PurchaseMicroservice.genruntimeconfig.cache
 D:\Faks\CETVRTA GODINA\URIS PROJEKAT\projekat\tim_7_socialbuzz-tim_7_socialbuzz\PurchaseMicroservice\PurchaseMicroservice\bin\Debug\netcoreapp3.1\PurchaseMicroservice.xml
 D:\Faks\CETVRTA GODINA\URIS PROJEKAT\projekat\tim_7_socialbuzz-tim_7_socialbuzz\PurchaseMicroservice\PurchaseMicroservice\obj\Debug\netcoreapp3.1\PurchaseMicroservice.csprojAssemblyReference.cache
+D:\Faks\CETVRTA GODINA\URIS PROJEKAT\projekat\tim_7_socialbuzz-tim_7_socialbuzz\PurchaseMicroservice\PurchaseMicroservice\bin\Debug\netcoreapp3.1\URIS_PurchaseMicroservice.postman_collection.json
