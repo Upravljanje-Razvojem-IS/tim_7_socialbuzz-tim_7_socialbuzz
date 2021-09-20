@@ -147,7 +147,7 @@ namespace RatingMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [HttpGet]
-        public ActionResult GetAllForTheItem([FromQuery] int itemId, [FromQuery] DateTime date)
+        public ActionResult GetAllForTheItemOnTheSpecificDate([FromQuery] int itemId, [FromQuery] DateTime date)
         {
             var entities = _repository.GetRatingsOfItemForSpecificDate(itemId, date);
 
