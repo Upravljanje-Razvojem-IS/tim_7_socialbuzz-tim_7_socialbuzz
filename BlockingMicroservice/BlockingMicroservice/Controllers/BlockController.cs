@@ -109,7 +109,7 @@ namespace BlockingMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("{id}")]
+        [HttpGet("blocked/{id}")]
         public ActionResult GetBlocedForUser(int id)
         {
             var entities = _repository.GetBlockedForUser(id);
@@ -127,7 +127,7 @@ namespace BlockingMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("{id}")]
+        [HttpGet("who-blocked/{id}")]
         public ActionResult GetWhoBlockedUser(int id)
         {
             var entities = _repository.GetWhoBlockedUser(id);

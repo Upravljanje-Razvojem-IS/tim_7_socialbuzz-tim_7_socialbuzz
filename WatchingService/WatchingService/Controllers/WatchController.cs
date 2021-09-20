@@ -109,7 +109,7 @@ namespace WatchingService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("{id}")]
+        [HttpGet("watched/{id}")]
         public ActionResult GetWatchedForUser(int id)
         {
             var entities = _repository.GetWatchedForUser(id);
@@ -127,7 +127,7 @@ namespace WatchingService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet("{id}")]
+        [HttpGet("who-watch/{id}")]
         public ActionResult GetWhoWatchedUser(int id)
         {
             var entities = _repository.GetWhoWatchedUser(id);
@@ -145,7 +145,7 @@ namespace WatchingService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [HttpGet]
+        [HttpGet("watch-each-other")]
         public ActionResult CheckIfTwoUsersWatchEachOther([FromQuery] int firstUser, [FromQuery] int secondUser)
         {
             var status = _repository.CheckIfUserWatchOtherUser(firstUser, secondUser);
