@@ -1,4 +1,5 @@
 ﻿using AccountService.Entities;
+using AccountService.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,6 @@ namespace AccountService.Services.Roles
             this.roleManager = roleManager;
         }
 
-        public async Task<AccRole> AddAsync(AccRole role)
-        {
-            if (!roleManager.RoleExistsAsync(role.Name).Result)
-            {
-                await roleManager.CreateAsync(role);
-                return role;
-            }
-            throw new Exception("Role must be unique");
-        }
-
         public List<AccRole> GetAllAsync()
         {
             return roleManager.Roles.ToList();
@@ -33,14 +24,35 @@ namespace AccountService.Services.Roles
 
         public async Task<AccRole> GetByIdAsync(Guid id)
         {
-            return await roleManager.FindByIdAsync(id.ToString());
+            var role = await roleManager.FindByIdAsync(id.ToString());
+            if (role == null)
+                throw new NotFoundException();
+
+            return role;
+        }
+
+        public async Task<AccRole> AddAsync(AccRole role)
+        {
+            if (role.Name.Length < 1)
+                throw new BadRequestException("Role name must be longer than 1 character.");
+
+            var exists = await roleManager.RoleExistsAsync(role.Name);
+            if (exists)
+            {
+                throw new ConflictException("Role already exists.");
+            }
+
+            await roleManager.CreateAsync(role);
+            var newRole = await roleManager.FindByIdAsync(role.Id.ToString());
+
+            return newRole;
         }
 
         public async Task<bool> RemoveByIdAsync(Guid id)
         {
             var role = await roleManager.FindByIdAsync(id.ToString());
             if (role == null)
-                return false;
+                throw new NotFoundException();
 
             await roleManager.DeleteAsync(role);
 
@@ -49,9 +61,12 @@ namespace AccountService.Services.Roles
 
         public async Task<bool> UpdateAsync(AccRole role)
         {
+            if (role.Name.Length < 1)
+                throw new BadRequestException("Role name must be longer than 1 character.");
+
             var exists = await roleManager.RoleExistsAsync(role.Name);
             if (!exists)
-                return false;
+                throw new NotFoundException();
 
             await roleManager.UpdateAsync(role);
 
