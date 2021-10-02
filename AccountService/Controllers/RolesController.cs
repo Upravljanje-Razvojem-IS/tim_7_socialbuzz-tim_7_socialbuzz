@@ -2,7 +2,9 @@
 using AccountService.Entities;
 using AccountService.Exceptions;
 using AccountService.Services.Roles;
+using AccountService.Validators.Role;
 using AutoMapper;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -81,6 +83,12 @@ namespace AccountService.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRole(Guid id, AccRolePutDTO rolePutDto)
         {
+            RolePutDtoValidator validator = new RolePutDtoValidator();
+            ValidationResult results = validator.Validate(rolePutDto);
+
+            if (!results.IsValid)
+                return BadRequest(results.ToString());
+
             try
             {
                 var role = mapper.Map<AccRole>(rolePutDto);
@@ -115,6 +123,12 @@ namespace AccountService.Controllers
         [HttpPost]
         public async Task<ActionResult<AccRoleResponseDTO>> PostRole(AccRolePostDTO role)
         {
+            RolePostDtoValidator validator = new RolePostDtoValidator();
+            ValidationResult results = validator.Validate(role);
+
+            if (!results.IsValid)
+                return BadRequest(results.ToString());
+
             AccRole roleResponse;
 
             try
