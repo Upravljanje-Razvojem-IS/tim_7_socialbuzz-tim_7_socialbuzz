@@ -31,6 +31,15 @@ namespace AccountService.Services.Roles
             return role;
         }
 
+        public async Task<AccRole> GetByNameAsync(string name)
+        {
+            var role = await roleManager.FindByNameAsync(name);
+            if (role == null)
+                throw new NotFoundException();
+
+            return role;
+        }
+
         public async Task<AccRole> AddAsync(AccRole role)
         {
             if (role.Name.Length < 1)
@@ -68,9 +77,9 @@ namespace AccountService.Services.Roles
             if (!exists)
                 throw new NotFoundException();
 
-            await roleManager.UpdateAsync(role);
+            var result = await roleManager.UpdateAsync(role);
 
-            return true;
+            return result.Succeeded;
         }
     }
 }
