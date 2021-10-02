@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AuthService</name>
+    </assembly>
+    <members>
+        <member name="T:AuthService.Controllers.AuthController">
+            <summary>
+            Controller with endpoints for authentication.
+            </summary>
+        </member>
+        <member name="M:AuthService.Controllers.AuthController.Login(AuthService.Models.Principal)">
+            <summary>
+            Account login
+            </summary>
+            <returns>Token, if the authentication went successful</returns>
+            <response code="200">Token</response>
+            <response code="400">Wrong email or password</response>
+            <response code="500">Internal server</response>
+        </member>
+        <member name="M:AuthService.Controllers.AuthController.Logout(AuthService.Models.Requests.LogoutRequest)">
+            <summary>
+            Account logout
+            </summary>
+            <returns></returns>
+            <response code="200">Account logged out</response>
+            <response code="400">Bad request</response>
+            <response code="500">Internal server errror</response>
+        </member>
+        <member name="P:AuthService.Models.Principal.Email">
+            <summary>
+            Account email
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.Principal.Password">
+            <summary>
+            Account password
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.Requests.LogoutRequest.Token">
+            <summary>
+            Token of account that wants to logout.
+            </summary>
+        </member>
+    </members>
+</doc>

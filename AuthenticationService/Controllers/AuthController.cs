@@ -1,111 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AuthService.Models;
+using AuthService.Models.Requests;
+using AuthService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace AuthService.Controllers
 {
-    [Route("api/auth")]
+    /// <summary>
+    /// Controller with endpoints for authentication.
+    /// </summary>
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        //private readonly AccountServiceContext _context;
-        //private UserManager<Account> UserMgr { get; }
-        //private SignInManager<Account> SignInMgr { get; }
+        private readonly IAuthenticationService _authenticationService;
 
-        //public AccountsController(AccountServiceContext context, UserManager<Account> userManager, SignInManager<Account> signInManager)
-        //{
-        //    _context = context;
-        //    UserMgr = userManager;
-        //    SignInMgr = signInManager;
-        //}
-
-        // GET: api/Accounts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
+        public AuthController(IAuthenticationService authenticationService)
         {
-            return await _context.Accounts.ToListAsync();
+            _authenticationService = authenticationService;
         }
 
-        //// GET: api/Accounts/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Account>> GetAccount(Guid id)
-        //{
-        //    var account = await _context.Accounts.FindAsync(id);
+        /// <summary>
+        /// Account login
+        /// </summary>
+        /// <returns>Token, if the authentication went successful</returns>
+        /// <response code="200">Token</response>
+        /// <response code="400">Wrong email or password</response>
+        /// <response code="500">Internal server</response>
+        [Route("/login")]
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Login([FromBody] Principal principal)
+        {
+            try
+            {
+                var authResponse = _authenticationService.Login(principal);
+                if (authResponse.Result.Success)
+                {
+                    return Ok(new LoginSuccessResponse
+                    {
+                        Token = authResponse.Result.Token
+                    });
+                }
+                return BadRequest(new AuthResponse
+                {
+                    Token = null,
+                    Success = false,
+                    Error = authResponse.Result.Error
+                });
+            }
+            catch (Exception ex)
+            {
 
-        //    if (account == null)
-        //    {
-        //        return NotFound();
-        //    }
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
-        //    return account;
-        //}
+            }
+        }
 
-        //// PUT: api/Accounts/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutAccount(Guid id, Account account)
-        //{
-        //    if (id != account.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        /// <summary>
+        /// Account logout
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">Account logged out</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal server errror</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("/logout")]
+        [HttpPost]
+        public IActionResult Logout(LogoutRequest body)
+        {
+            try
+            {
+                AuthModel authModel = _authenticationService.GetAuthModelByToken(body.Token);
+                if (authModel is null)
+                {
+                    return BadRequest("Account with this ID logged out or does not exist");
+                }
+                _authenticationService.Logout(authModel.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
 
-        //    _context.Entry(account).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!AccountExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Accounts
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Account>> PostAccount(Account account)
-        //{
-        //    _context.Accounts.Add(account);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetAccount", new { id = account.Id }, account);
-        //}
-
-        //// DELETE: api/Accounts/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteAccount(Guid id)
-        //{
-        //    var account = await _context.Accounts.FindAsync(id);
-        //    if (account == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Accounts.Remove(account);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
-        //private bool AccountExists(Guid id)
-        //{
-        //    return _context.Accounts.Any(e => e.Id == id);
-        //}
+            }
+        }
     }
 }
