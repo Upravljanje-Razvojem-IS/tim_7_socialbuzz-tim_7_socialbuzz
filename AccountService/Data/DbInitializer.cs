@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AccountService.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
-using AccountService.Entities;
-using AccountService.Data;
 
 namespace AccountService.Data
 {
@@ -74,6 +72,9 @@ namespace AccountService.Data
                     Id = Guid.Parse("259064f5-fdd5-4dbd-965e-79129c3bc0e3"),
                     FirstName = "Petar",
                     LastName = "Petrovic",
+                    UserName = "petar.petrovic@email.com",
+                    Email = "petar.petrovic@email.com",
+                    StreetAddress = "Bulevar cara Lazara 7a",
                     CityId = Guid.Parse("e5a60ae7-4c82-4678-8d98-6c711d9c7d3f"),
                     RoleId = Guid.Parse("c8ae737c-ed9b-4fee-be6f-9c74ba376ae7") // Administrator
                 },
@@ -81,6 +82,9 @@ namespace AccountService.Data
                     Id = Guid.Parse("d59101e6-feaa-421f-9392-793f86bdaf4b"),
                     FirstName = "Marko",
                     LastName = "Markovic",
+                    UserName = "marko.markovic@email.com",
+                    Email = "marko.markovic@email.com",
+                    StreetAddress = "Žitni trg 4",
                     CityId = Guid.Parse("e5a60ae7-4c82-4678-8d98-6c711d9c7d3f"),
                     RoleId = Guid.Parse("56860de3-f338-449c-be26-c946d4cb73b0") // User
                 },
@@ -88,6 +92,9 @@ namespace AccountService.Data
                     Id = Guid.Parse("1f11e055-0409-4467-b8d9-245049d69d7b"),
                     FirstName = "Nikola",
                     LastName = "Nikolic",
+                    UserName = "nikola.nikolic@email.com",
+                    Email = "nikola.nikolic@email.com",
+                    StreetAddress = "Danila Kiša 13",
                     CityId = Guid.Parse("d09118cb-05b7-4d5a-864a-6fd5199b794a"),
                     RoleId = Guid.Parse("56860de3-f338-449c-be26-c946d4cb73b0") // User
                 }
