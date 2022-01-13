@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.Interface
 {
-    public interface IOrderRepository
+    public interface IProductRepository
     {
-        List<Order> GetAll();
-        Order GetById(Guid id);
-        Order Add(Order order);
-        Order Update(Guid id, Order order);
+        List<Product> GetAll();
+        Product GetById(Guid id);
+        Product Add(Product product);
+        Product Update(Guid id, Product product);
         void Delete(Guid id);
-
     }
 }

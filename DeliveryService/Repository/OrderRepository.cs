@@ -1,4 +1,5 @@
-﻿using DeliveryService.Interface;
+﻿using DeliveryService.Database;
+using DeliveryService.Interface;
 using DeliveryService.Models;
 using System;
 using System.Collections.Generic;
@@ -9,31 +10,82 @@ namespace DeliveryService.Repository
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly IOrderRepository orderRepository;
-
-        public BaseUserModel Add()
+        private readonly IOrderRepository order;
+        private readonly DatabaseContext Context;
+        public OrderRepository(DatabaseContext context) 
         {
-            throw new NotImplementedException();
+            Context = context;
         }
 
-        public void Delete(Guid id)
+        public Order Add(Order order)
         {
-            throw new NotImplementedException();
+            Context.Add(order);
+            Context.SaveChanges();
+            return order;
         }
 
-        public List<BaseUserModel> GetAll()
+        public void Delete(Guid orderId)
         {
-            throw new NotImplementedException();
+            var order = Context.Orders.Where(e => e.Id == orderId).FirstOrDefault();
+            if (order == null)
+                throw new ArgumentNullException("Order");
+            else
+            {
+                Context.Remove(order);
+                Context.SaveChanges();
+            }
+        
         }
 
-        public BaseUserModel GetById(Guid id)
+        public List<Order> GetAll()
         {
-            throw new NotImplementedException();
+            var orders = Context.Orders.Select(c => new Order()
+            {
+                Id = c.Id,
+                Address = c.Address,
+                Quantity= c.Quantity,
+                ProductName =c.ProductName,
+                Price = c.Price,
+                Contact = c.Contact,
+                Details = c.Details
+            }).ToList();
+
+            return orders;
         }
 
-        public BaseUserModel Update(Guid id, BaseUserModel user)
+        public Order GetById(Guid id)
         {
-            throw new NotImplementedException();
+            Order order = null;
+
+            order = Context.Orders.Where(e => e.Id == id).Select(c => new Order()
+            {
+                Id = c.Id,
+                Address = c.Address,
+                Quantity = c.Quantity,
+                ProductName = c.ProductName,
+                Price = c.Price,
+                Contact = c.Contact,
+                Details = c.Details
+            }).FirstOrDefault();
+            return order;
+        }
+
+        public Order Update(Guid id, Order order)
+        {
+            var updatedOrder = Context.Orders.FirstOrDefault(x => x.Id == order.Id);
+
+            if (updatedOrder == null)
+                throw new ArgumentNullException("Order");
+
+                updatedOrder.Address = order.Address;
+                updatedOrder.Quantity = order.Quantity;
+                updatedOrder.ProductName = order.ProductName;
+                updatedOrder.Price = order.Price;
+                updatedOrder.Contact = order.Contact;
+                updatedOrder.Details = order.Details;
+
+            Context.SaveChanges();
+            return updatedOrder;
         }
     }
 }
