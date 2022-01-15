@@ -1,6 +1,8 @@
+using DeliveryService.Config;
 using DeliveryService.Database;
 using DeliveryService.Interface;
 using DeliveryService.Repository;
+using DeliveryService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,13 +32,22 @@ namespace DeliveryService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBaseUserModelRepository, BaseUserModelRepository>();
-
+            services.AddSingleton<IPasswordHasher, PasswordHasherService>();
+            
+            
             services.AddControllers();
 
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseString")));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+            AuthConfig authConfig = new AuthConfig();
+            Configuration.Bind("Authentication", authConfig);
+            services.AddSingleton(authConfig);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeliveryService", Version = "v1" });

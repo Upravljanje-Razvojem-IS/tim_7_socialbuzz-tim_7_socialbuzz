@@ -1,4 +1,6 @@
-﻿using DeliveryService.Database;
+﻿using AutoMapper;
+using DeliveryService.Database;
+using DeliveryService.DTOs.UserDTOs;
 using DeliveryService.Interface;
 using DeliveryService.Models;
 using System;
@@ -11,28 +13,40 @@ namespace DeliveryService.Repository
     public class BaseUserModelRepository : IBaseUserModelRepository
     {
 
-
-        private readonly BaseUserModelRepository user;
         private readonly DatabaseContext Context;
+        private readonly IMapper Mapper;
 
-        public BaseUserModelRepository(DatabaseContext context)
+        public BaseUserModelRepository(DatabaseContext context, IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
         }
 
 
-        public BaseUserModel Add(BaseUserModel userModel)
+        public UserDTO Add(UserCreateDTO userModel)
         {
-            Context.Add(userModel);
+            BaseUserModel user = new BaseUserModel()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = userModel.FirstName,
+                LastName = userModel.LastName,
+                City = userModel.City,
+                Address = userModel.Address,
+                Email = userModel.Email,
+                PasswordHash = userModel.PasswordHash
+            };
+
+            Context.Users.Add(user);
             Context.SaveChanges();
-            return userModel;
+
+            return Mapper.Map<UserDTO>(user);
         }
 
         public void Delete(Guid id)
         {
-            var user = Context.Orders.Where(e => e.Id == id).FirstOrDefault();
+            var user = Context.Users.Where(e => e.Id == id).FirstOrDefault();
             if (user == null)
-                throw new ArgumentNullException("BaseUserModel");
+                throw new ArgumentNullException("User does not exist");
             else
             {
                 Context.Remove(user);
@@ -40,7 +54,7 @@ namespace DeliveryService.Repository
             }
         }
 
-        public List<BaseUserModel> GetAll()
+        public List<UserDTO> GetAll()
         {
             var users = Context.Users.Select(c => new BaseUserModel()
             {
@@ -53,14 +67,13 @@ namespace DeliveryService.Repository
                 PasswordHash = c.PasswordHash
             }).ToList();
 
-            return users;
+            return Mapper.Map<List<UserDTO>>(users);
         }
 
-        public BaseUserModel GetById(Guid id)
+        public UserDTO GetById(Guid id)
         {
-            BaseUserModel user = null;
 
-            user = Context.Users.Where(e => e.Id == id).Select(c => new BaseUserModel()
+            var user = Context.Users.Where(e => e.Id == id).Select(c => new BaseUserModel()
             {
                 Id = c.Id,
                 FirstName = c.FirstName,
@@ -70,15 +83,16 @@ namespace DeliveryService.Repository
                 Email = c.Email,
                 PasswordHash = c.PasswordHash
             }).FirstOrDefault();
-            return user;
+
+            return Mapper.Map<UserDTO>(user);
         }
 
-        public BaseUserModel Update(Guid id, BaseUserModel userModel)
+        public UserConfirmDTO Update(Guid id, UserDTO userModel)
         {
-            var updatedUserModel = Context.Users.FirstOrDefault(x => x.Id == userModel.Id);
+            var updatedUserModel = Context.Users.FirstOrDefault(x => x.Id == id);
 
             if (updatedUserModel == null)
-                throw new ArgumentNullException("User");
+                throw new ArgumentNullException("User does not exist");
 
             
             updatedUserModel.FirstName = userModel.FirstName;
@@ -89,7 +103,7 @@ namespace DeliveryService.Repository
             updatedUserModel.PasswordHash= userModel.PasswordHash;
 
             Context.SaveChanges();
-            return updatedUserModel;
+            return Mapper.Map<UserConfirmDTO>(updatedUserModel);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DeliveryService.Models;
+﻿using DeliveryService.DTOs.ProductDTOs;
+using DeliveryService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ namespace DeliveryService.Interface
 {
     public interface IProductRepository
     {
-        List<Product> GetAll();
-        Product GetById(Guid id);
-        Product Add(Product product);
-        Product Update(Guid id, Product product);
+        List<ProductDTO> GetAll();
+        ProductDTO GetById(Guid id);
+        ProductDTO Add(ProductCreateDTO product);
+        ProductConfirmDTO Update(Guid id, ProductDTO product);
         void Delete(Guid id);
     }
 }

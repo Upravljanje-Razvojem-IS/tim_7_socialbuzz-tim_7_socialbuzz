@@ -1,4 +1,6 @@
-﻿using DeliveryService.Database;
+﻿using AutoMapper;
+using DeliveryService.Database;
+using DeliveryService.DTOs.ProductDTOs;
 using DeliveryService.Interface;
 using DeliveryService.Models;
 using System;
@@ -10,27 +12,37 @@ namespace DeliveryService.Repository
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly IProductRepository product;
         private readonly DatabaseContext Context;
-        public ProductRepository(DatabaseContext context)
+        private readonly IMapper Mapper;
+        public ProductRepository(DatabaseContext context, IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
         }
 
 
-        public Product Add(Product product)
+        public ProductDTO Add(ProductCreateDTO product)
         {
+            Product addedProduct = new Product()
+            {
+                Id = Guid.NewGuid(),
+                Name = product.Name,
+                Quantity = product.Quantity,
+                Price = product.Price,
+                Description = product.Description
+            };
 
-            Context.Add(product);
+            Context.Products.Add(addedProduct);
             Context.SaveChanges();
-            return product;
+
+            return Mapper.Map<ProductDTO>(addedProduct);
         }
 
         public void Delete(Guid id)
         {
             var product = Context.Products.Where(e => e.Id == id).FirstOrDefault();
             if (product == null)
-                throw new ArgumentNullException("Product");
+                throw new ArgumentNullException("Product does not exist");
             else 
             {
                 Context.Remove(product);
@@ -38,7 +50,7 @@ namespace DeliveryService.Repository
             }
         }
 
-        public List<Product> GetAll()
+        public List<ProductDTO> GetAll()
         {
             var products = Context.Products.Select(c => new Product()
             {
@@ -49,14 +61,13 @@ namespace DeliveryService.Repository
                 Description = c.Description
             }).ToList();
 
-            return products;
+            return Mapper.Map<List<ProductDTO>>(products);
         }
 
-        public Product GetById(Guid id)
+        public ProductDTO GetById(Guid id)
         {
-            Product product = null;
 
-            product = Context.Products.Where(e => e.Id == id).Select(c => new Product()
+            var product = Context.Products.Where(e => e.Id == id).Select(c => new Product()
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -65,12 +76,12 @@ namespace DeliveryService.Repository
                 Description = c.Description
             }).FirstOrDefault();
 
-            return product;
+            return Mapper.Map<ProductDTO>(product);
         }
 
-        public Product Update(Guid id, Product product)
+        public ProductConfirmDTO Update(Guid id, ProductDTO product)
         {
-            var updatedProduct = Context.Products.FirstOrDefault(x => x.Id == product.Id);
+            var updatedProduct = Context.Products.FirstOrDefault(x => x.Id == id);
             if (updatedProduct == null)
                 throw new EntryPointNotFoundException();
             updatedProduct.Name = product.Name;
@@ -80,7 +91,7 @@ namespace DeliveryService.Repository
 
             Context.SaveChanges();
 
-            return updatedProduct;
+            return Mapper.Map<ProductConfirmDTO>(updatedProduct);
 
         }
     }

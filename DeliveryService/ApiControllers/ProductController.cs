@@ -1,4 +1,5 @@
-﻿using DeliveryService.Interface;
+﻿using DeliveryService.DTOs.ProductDTOs;
+using DeliveryService.Interface;
 using DeliveryService.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.ApiControllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -21,6 +25,10 @@ namespace DeliveryService.ApiControllers
 
         public IProductRepository ProductRepository { get; }
 
+        /// <summary>
+        /// get all product
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public IActionResult GetAllProducts()
         {
@@ -31,6 +39,11 @@ namespace DeliveryService.ApiControllers
             }
             return BadRequest("No products found");
         }
+        /// <summary>
+        /// get product by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{id}")]
         public ActionResult<Product> GetProductById(Guid id)
         {
@@ -40,8 +53,13 @@ namespace DeliveryService.ApiControllers
             return NotFound();
         }
 
+        /// <summary>
+        /// create new product
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
-        public IActionResult AddProduct(Product product)
+        public IActionResult AddProduct(ProductCreateDTO product)
         {
            
                 try
@@ -56,8 +74,14 @@ namespace DeliveryService.ApiControllers
                 }
            
         }
+        /// <summary>
+        /// update product
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [HttpPut("[action]")]
-        public IActionResult UpdateProduct(Guid id, Product product)
+        public IActionResult UpdateProduct(Guid id, ProductDTO product)
         {
             try
             {
@@ -71,6 +95,11 @@ namespace DeliveryService.ApiControllers
                 return NotFound();
             }
         }
+        /// <summary>
+        /// delete product 
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
         [HttpDelete("[action]/{id}")]
         public IActionResult DeleteProduct(Guid productId)
         {

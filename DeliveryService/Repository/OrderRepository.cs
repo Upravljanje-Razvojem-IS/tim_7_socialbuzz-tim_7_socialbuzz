@@ -1,4 +1,6 @@
-﻿using DeliveryService.Database;
+﻿using AutoMapper;
+using DeliveryService.Database;
+using DeliveryService.DTOs.OrderDTOs;
 using DeliveryService.Interface;
 using DeliveryService.Models;
 using System;
@@ -10,56 +12,74 @@ namespace DeliveryService.Repository
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly IOrderRepository order;
+
         private readonly DatabaseContext Context;
-        public OrderRepository(DatabaseContext context) 
+        private readonly IMapper Mapper;
+        public OrderRepository(DatabaseContext context, IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
+
         }
 
-        public Order Add(Order order)
+        public OrderDTO Add(OrderCreateDTO order)
         {
-            Context.Add(order);
+            Order addedOrder = new Order()
+            {
+                Id = Guid.NewGuid(),
+                User = order.BuyerID,
+                Address = order.Address,
+                Quantity = order.Quantity,
+                ProductName = order.ProductName,
+                Price = order.Price,
+                Contact = order.Contact,
+                Details = order.Details,
+                OrderDate = order.OrderDate,
+                DeliveryDate = order.DeliveryDate
+            };
+
+            Context.Orders.Add(addedOrder);
             Context.SaveChanges();
-            return order;
+
+            return Mapper.Map<OrderDTO>(addedOrder);
         }
 
         public void Delete(Guid orderId)
         {
             var order = Context.Orders.Where(e => e.Id == orderId).FirstOrDefault();
             if (order == null)
-                throw new ArgumentNullException("Order");
+                throw new ArgumentNullException("Order does not exist");
             else
             {
                 Context.Remove(order);
                 Context.SaveChanges();
             }
-        
+
         }
 
-        public List<Order> GetAll()
+        public List<OrderDTO> GetAll()
         {
             var orders = Context.Orders.Select(c => new Order()
             {
                 Id = c.Id,
+                User = c.User,
                 Address = c.Address,
-                Quantity= c.Quantity,
-                ProductName =c.ProductName,
+                Quantity = c.Quantity,
+                ProductName = c.ProductName,
                 Price = c.Price,
                 Contact = c.Contact,
                 Details = c.Details
             }).ToList();
 
-            return orders;
+            return Mapper.Map<List<OrderDTO>>(orders);
         }
 
-        public Order GetById(Guid id)
+        public OrderDTO GetById(Guid id)
         {
-            Order order = null;
-
-            order = Context.Orders.Where(e => e.Id == id).Select(c => new Order()
+            var order = Context.Orders.Where(e => e.Id == id).Select(c => new Order()
             {
                 Id = c.Id,
+                User = c.User,
                 Address = c.Address,
                 Quantity = c.Quantity,
                 ProductName = c.ProductName,
@@ -67,25 +87,27 @@ namespace DeliveryService.Repository
                 Contact = c.Contact,
                 Details = c.Details
             }).FirstOrDefault();
-            return order;
+
+            return Mapper.Map<OrderDTO>(order);
         }
 
-        public Order Update(Guid id, Order order)
+        public OrderConfirmDTO Update(Guid id, OrderDTO order)
         {
-            var updatedOrder = Context.Orders.FirstOrDefault(x => x.Id == order.Id);
+            var updatedOrder = Context.Orders.FirstOrDefault(x => x.Id == id);
 
             if (updatedOrder == null)
                 throw new ArgumentNullException("Order");
 
-                updatedOrder.Address = order.Address;
-                updatedOrder.Quantity = order.Quantity;
-                updatedOrder.ProductName = order.ProductName;
-                updatedOrder.Price = order.Price;
-                updatedOrder.Contact = order.Contact;
-                updatedOrder.Details = order.Details;
+            updatedOrder.Address = order.Address;
+            updatedOrder.Quantity = order.Quantity;
+            updatedOrder.ProductName = order.ProductName;
+            updatedOrder.Price = order.Price;
+            updatedOrder.Contact = order.Contact;
+            updatedOrder.Details = order.Details;
 
             Context.SaveChanges();
-            return updatedOrder;
+
+            return Mapper.Map<OrderConfirmDTO>(updatedOrder);
         }
     }
 }

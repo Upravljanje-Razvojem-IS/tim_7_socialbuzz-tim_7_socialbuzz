@@ -1,4 +1,5 @@
-﻿using DeliveryService.Interface;
+﻿using DeliveryService.DTOs.UserDTOs;
+using DeliveryService.Interface;
 using DeliveryService.Models;
 using DeliveryService.Repository;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.ApiControllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class UserModelContoller : ControllerBase
@@ -24,6 +28,10 @@ namespace DeliveryService.ApiControllers
             UserModelRepository = userModelRepository;
         }
 
+        /// <summary>
+        /// get all users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public IActionResult GetAllUsers()
         {
@@ -34,6 +42,11 @@ namespace DeliveryService.ApiControllers
             }
             return BadRequest("No users found");
         }
+        /// <summary>
+        /// get user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{id}")]
         public ActionResult<BaseUserModel> GetUsersById(Guid id)
         {
@@ -42,8 +55,13 @@ namespace DeliveryService.ApiControllers
                 return Ok(user);
             return NotFound();
         }
+        /// <summary>
+        /// create new user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
-        public IActionResult AddUser(BaseUserModel user)
+        public IActionResult AddUser(UserCreateDTO user)
         {
 
             try
@@ -58,8 +76,14 @@ namespace DeliveryService.ApiControllers
             }
 
         }
+        /// <summary>
+        /// update user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPut("[action]")]
-        public IActionResult UpdateUser(Guid id, BaseUserModel user)
+        public IActionResult UpdateUser(Guid id, UserDTO user)
         {
             try
             {
@@ -73,6 +97,11 @@ namespace DeliveryService.ApiControllers
                 return NotFound();
             }
         }
+        /// <summary>
+        /// delete user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpDelete("[action]/{id}")]
         public IActionResult DeleteUser(Guid userId)
         {

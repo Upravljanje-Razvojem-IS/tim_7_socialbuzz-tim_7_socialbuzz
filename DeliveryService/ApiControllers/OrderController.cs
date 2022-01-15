@@ -1,4 +1,5 @@
-﻿using DeliveryService.Interface;
+﻿using DeliveryService.DTOs.OrderDTOs;
+using DeliveryService.Interface;
 using DeliveryService.Models;
 using DeliveryService.Repository;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.ApiControllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -22,6 +26,10 @@ namespace DeliveryService.ApiControllers
 
         public IOrderRepository OrderRepository { get; }
 
+        /// <summary>
+        /// get all orders
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public IActionResult GetAllOrders()
         {
@@ -33,6 +41,11 @@ namespace DeliveryService.ApiControllers
             return BadRequest("No orders found");
         }
 
+        /// <summary>
+        /// get order by orderId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{id}")]
         public ActionResult<Order> GetOrderById(Guid id)
         {
@@ -41,12 +54,17 @@ namespace DeliveryService.ApiControllers
                 return Ok(order);
             return NotFound();
         }
+        /// <summary>
+        /// create new order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
-        public IActionResult AddOrder(Order order)
+        public IActionResult AddOrder(OrderCreateDTO order)
         {
             try
             {
-               OrderRepository.Add(order);
+                OrderRepository.Add(order);
 
                 return Ok("Data inserted");
             }
@@ -55,12 +73,18 @@ namespace DeliveryService.ApiControllers
                 return BadRequest();
             }
         }
+        /// <summary>
+        ///  update order
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
         [HttpPut("[action]")]
-        public IActionResult UpdateOrder(Guid id,Order order)
+        public IActionResult UpdateOrder(Guid id, OrderDTO order)
         {
             try
             {
-                OrderRepository.Update(id,order);
+                OrderRepository.Update(id, order);
 
                 return Ok("Updated client");
 
@@ -71,7 +95,7 @@ namespace DeliveryService.ApiControllers
             }
         }
         /// <summary>
-        /// 
+        ///  delete order
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
