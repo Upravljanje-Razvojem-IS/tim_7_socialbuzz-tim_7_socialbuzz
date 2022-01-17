@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.Repository
 {
+    /// <summary>
+    /// Product repositiry
+    /// </summary>
     public class ProductRepository : IProductRepository
     {
         private readonly DatabaseContext Context;
@@ -21,6 +24,11 @@ namespace DeliveryService.Repository
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public ProductDTO Add(ProductCreateDTO product)
         {
             Product addedProduct = new Product()
@@ -38,6 +46,10 @@ namespace DeliveryService.Repository
             return Mapper.Map<ProductDTO>(addedProduct);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(Guid id)
         {
             var product = Context.Products.Where(e => e.Id == id).FirstOrDefault();
@@ -50,6 +62,10 @@ namespace DeliveryService.Repository
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<ProductDTO> GetAll()
         {
             var products = Context.Products.Select(c => new Product()
@@ -64,6 +80,11 @@ namespace DeliveryService.Repository
             return Mapper.Map<List<ProductDTO>>(products);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ProductDTO GetById(Guid id)
         {
 
@@ -79,6 +100,12 @@ namespace DeliveryService.Repository
             return Mapper.Map<ProductDTO>(product);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public ProductConfirmDTO Update(Guid id, ProductDTO product)
         {
             var updatedProduct = Context.Products.FirstOrDefault(x => x.Id == id);

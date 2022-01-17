@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.Repository
 {
+    /// <summary>
+    /// User repository 
+    /// </summary>
     public class BaseUserModelRepository : IBaseUserModelRepository
     {
 
@@ -23,6 +26,11 @@ namespace DeliveryService.Repository
         }
 
 
+        /// <summary>
+        /// create new user
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
         public UserDTO Add(UserCreateDTO userModel)
         {
             BaseUserModel user = new BaseUserModel()
@@ -42,6 +50,10 @@ namespace DeliveryService.Repository
             return Mapper.Map<UserDTO>(user);
         }
 
+        /// <summary>
+        /// delete user
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(Guid id)
         {
             var user = Context.Users.Where(e => e.Id == id).FirstOrDefault();
@@ -54,6 +66,10 @@ namespace DeliveryService.Repository
             }
         }
 
+        /// <summary>
+        /// retursn all users
+        /// </summary>
+        /// <returns></returns>
         public List<UserDTO> GetAll()
         {
             var users = Context.Users.Select(c => new BaseUserModel()
@@ -70,6 +86,11 @@ namespace DeliveryService.Repository
             return Mapper.Map<List<UserDTO>>(users);
         }
 
+        /// <summary>
+        /// return user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public UserDTO GetById(Guid id)
         {
 
@@ -87,6 +108,12 @@ namespace DeliveryService.Repository
             return Mapper.Map<UserDTO>(user);
         }
 
+        /// <summary>
+        /// update user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
         public UserConfirmDTO Update(Guid id, UserDTO userModel)
         {
             var updatedUserModel = Context.Users.FirstOrDefault(x => x.Id == id);

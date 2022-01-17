@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.Repository
 {
+    /// <summary>
+    /// Order repository shows all order
+    /// </summary>
     public class OrderRepository : IOrderRepository
     {
 
@@ -22,6 +25,11 @@ namespace DeliveryService.Repository
 
         }
 
+        /// <summary>
+        ///  add a new order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public OrderDTO Add(OrderCreateDTO order)
         {
             Order addedOrder = new Order()
@@ -44,6 +52,10 @@ namespace DeliveryService.Repository
             return Mapper.Map<OrderDTO>(addedOrder);
         }
 
+        /// <summary>
+        /// delete order 
+        /// </summary>
+        /// <param name="orderId"></param>
         public void Delete(Guid orderId)
         {
             var order = Context.Orders.Where(e => e.Id == orderId).FirstOrDefault();
@@ -57,6 +69,10 @@ namespace DeliveryService.Repository
 
         }
 
+        /// <summary>
+        /// show all orders
+        /// </summary>
+        /// <returns></returns>
         public List<OrderDTO> GetAll()
         {
             var orders = Context.Orders.Select(c => new Order()
@@ -74,6 +90,11 @@ namespace DeliveryService.Repository
             return Mapper.Map<List<OrderDTO>>(orders);
         }
 
+        /// <summary>
+        ///  returns order by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public OrderDTO GetById(Guid id)
         {
             var order = Context.Orders.Where(e => e.Id == id).Select(c => new Order()
@@ -91,6 +112,12 @@ namespace DeliveryService.Repository
             return Mapper.Map<OrderDTO>(order);
         }
 
+        /// <summary>
+        ///  update order
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public OrderConfirmDTO Update(Guid id, OrderDTO order)
         {
             var updatedOrder = Context.Orders.FirstOrDefault(x => x.Id == id);

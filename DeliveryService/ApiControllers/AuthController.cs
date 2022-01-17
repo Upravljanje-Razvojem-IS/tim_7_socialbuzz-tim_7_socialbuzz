@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace DeliveryService.ApiControllers
 {
+    /// <summary>
+    /// AuthController  allows the implementation of user authorization
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -20,6 +23,13 @@ namespace DeliveryService.ApiControllers
         private readonly IPasswordHasher PasswordHasher;
         private readonly AccessTokenGenerator AccessTokenGenerator;
 
+        /// <summary>
+        /// constructor AuthController through the passed parameters enables the implementation of authorization
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="userRepository"></param>
+        /// <param name="passwordHasher"></param>
+        /// <param name="accessTokenGenerator"></param>
         public AuthController(DatabaseContext context, 
             IBaseUserModelRepository userRepository, 
             IPasswordHasher passwordHasher, 
@@ -31,6 +41,11 @@ namespace DeliveryService.ApiControllers
             AccessTokenGenerator = accessTokenGenerator;
         }
 
+        /// <summary>
+        ///  login method allows users to log in
+        /// </summary>
+        /// <param name="loginUser"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public IActionResult Login(UserLogInDTO loginUser)
         {
@@ -69,6 +84,10 @@ namespace DeliveryService.ApiControllers
                 message = "success"
             });
         }
+        /// <summary>
+        ///  logout method allows users to log out
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public IActionResult Logout()
         {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace DeliveryService.ApiControllers
 {
     /// <summary>
-    /// 
+    /// Product controller
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]

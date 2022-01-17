@@ -8,7 +8,7 @@ namespace DeliveryService.mockData
 {
     public static class mockUser
     {
-        public static readonly List<BaseUserModel> Users = new List<BaseUserModel>
+        public static List<BaseUserModel> Users = new List<BaseUserModel>
         {
             new BaseUserModel()
             {
